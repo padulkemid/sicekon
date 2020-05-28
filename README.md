@@ -1,4 +1,4 @@
 # Si Cekon
 
-> Preserved for client docs later.
+> Preserved for server docs later.
 
