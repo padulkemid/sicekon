@@ -1,8 +1,11 @@
-import { checkInfo } from '../entities/symptomsResolver';
+import { checkInfo, diagnoseSymptoms } from '../entities/symptomsResolver';
 
 const resolvers = {
   Query: {
     checkInfo,
+  },
+  Mutation: {
+    diagnoseSymptoms,
   },
 };
 

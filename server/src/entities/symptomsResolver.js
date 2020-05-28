@@ -23,3 +23,28 @@ const checkInfo = async () => {
 };
 
 export { checkInfo };
+
+// Mutations
+const diagnoseSymptoms = async (_, { diagnosis }) => {
+  const diagnoseData = await fetch(`${baseUrl}/diagnosis`, {
+    method: 'post',
+    body: JSON.stringify(diagnosis),
+    headers: {
+      'App-Id': process.env.APP_ID,
+      'App-key': process.env.APP_KEY,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const response = await diagnoseData.json();
+  const { question, conditions, should_stop } = response;
+  const struct = {
+    question,
+    conditions,
+    should_stop,
+  };
+
+  return struct;
+};
+
+export { diagnoseSymptoms };
