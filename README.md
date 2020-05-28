@@ -1,2 +1,4 @@
-# sicekon
-Si Cekon ( Symptom Check Online )
+# Si Cekon
+
+> Preserved for master docs later.
+
