@@ -47,4 +47,24 @@ const diagnoseSymptoms = async (_, { diagnosis }) => {
   return struct;
 };
 
-export { diagnoseSymptoms };
+const chatFinalResponse = async (_, { complaint }) => {
+  const getComplaint = await fetch(`${baseUrl}/parse`, {
+    method: 'post',
+    body: JSON.stringify(complaint),
+    headers: {
+      'App-Id': process.env.APP_ID,
+      'App-key': process.env.APP_KEY,
+      'Content-Type': 'application/json',
+    },
+  });
+  const response = await getComplaint.json();
+  const { mentions, obvious } = response;
+  const struct = {
+    mentions,
+    obvious,
+  };
+
+  return struct;
+};
+
+export { diagnoseSymptoms, chatFinalResponse };

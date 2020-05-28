@@ -1,4 +1,8 @@
-import { checkInfo, diagnoseSymptoms } from '../entities/symptomsResolver';
+import {
+  checkInfo,
+  diagnoseSymptoms,
+  chatFinalResponse,
+} from '../entities/symptomsResolver';
 
 const resolvers = {
   Query: {
@@ -6,6 +10,7 @@ const resolvers = {
   },
   Mutation: {
     diagnoseSymptoms,
+    chatFinalResponse,
   },
 };
 

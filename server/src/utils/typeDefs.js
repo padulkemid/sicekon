@@ -38,6 +38,20 @@ const typeDefs = gql`
     should_stop: Boolean
   }
 
+  type ChatResponseMentions {
+    id: ID
+    name: String
+    common_name: String
+    orth: String
+    type: String
+    choice_id: String
+  }
+
+  type ChatResponse {
+    mentions: [ChatResponseMentions]
+    obvious: Boolean
+  }
+
   ### Mutation inputs
   input Evidence {
     id: ID!
@@ -56,6 +70,11 @@ const typeDefs = gql`
     extras: DiagnosisExtras!
   }
 
+  input ChatComplaint {
+    text: String!
+    context: [String]
+  }
+
   ### Generic returns
   type GenericResult {
     result: String!
@@ -68,6 +87,7 @@ const typeDefs = gql`
 
   type Mutation {
     diagnoseSymptoms(diagnosis: Diagnosis!): DiagnosisResult!
+    chatFinalResponse(complaint: ChatComplaint!): ChatResponse!
   }
 `;
 
