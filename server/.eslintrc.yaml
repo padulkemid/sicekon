@@ -9,4 +9,5 @@ extends:
 rules:
   no-unused-vars: warn
   no-console: off
+  camelcase: off
   import/prefer-default-export: off

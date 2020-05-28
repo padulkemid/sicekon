@@ -1,19 +1,17 @@
 import { gql } from 'apollo-server';
 
 const typeDefs = gql`
-    type User {
-        sex: String
-        age: Int
-        evidence: [String]
-    }
+  ### Query types
+  type Info {
+    updated_at: String!
+    conditions_count: Int!
+    symptoms_count: Int!
+  }
 
-    type StringResult {
-        result: String!
-    }
-
-    type Query {
-        authUser: StringResult
-    }
+  ### Invocations
+  type Query {
+    checkInfo: Info!
+  }
 `;
 
 export default typeDefs;
