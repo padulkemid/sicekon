@@ -115,7 +115,7 @@ const checkTriage = async (_, { diagnosis }) => {
   const { triage_level, serious } = response;
   const struct = {
     triage_level,
-    serious
+    serious,
   };
 
   return struct;
