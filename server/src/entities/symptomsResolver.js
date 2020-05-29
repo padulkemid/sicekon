@@ -22,7 +22,40 @@ const checkInfo = async () => {
   return struct;
 };
 
-export { checkInfo };
+const checkCondition = async (_, { id }) => {
+  const getDetails = await fetch(`${baseUrl}/conditions/${id}`, {
+    method: 'get',
+    headers: {
+      'App-Id': process.env.APP_ID,
+      'App-key': process.env.APP_KEY,
+    },
+  });
+  const response = await getDetails.json();
+  const {
+    name,
+    common_name,
+    categories,
+    prevalence,
+    acuteness,
+    severity,
+    extras,
+  } = response;
+
+  const struct = {
+    id,
+    name,
+    common_name,
+    categories,
+    prevalence,
+    acuteness,
+    severity,
+    extras,
+  };
+
+  return struct;
+};
+
+export { checkInfo, checkCondition };
 
 // Mutations
 const diagnoseSymptoms = async (_, { diagnosis }) => {
@@ -67,4 +100,26 @@ const chatFinalResponse = async (_, { complaint }) => {
   return struct;
 };
 
-export { diagnoseSymptoms, chatFinalResponse };
+const checkTriage = async (_, { diagnosis }) => {
+  const triageData = await fetch(`${baseUrl}/triage`, {
+    method: 'post',
+    body: JSON.stringify(diagnosis),
+    headers: {
+      'App-Id': process.env.APP_ID,
+      'App-key': process.env.APP_KEY,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const response = await triageData.json();
+  const { triage_level, serious } = response;
+  const struct = {
+    triage_level,
+    serious
+  };
+
+  return struct;
+};
+
+
+export { diagnoseSymptoms, chatFinalResponse, checkTriage };

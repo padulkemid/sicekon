@@ -52,6 +52,33 @@ const typeDefs = gql`
     obvious: Boolean
   }
 
+  type ConditionExtras {
+    hint: String
+  }
+
+  type ConditionCheck {
+    id: ID!
+    name: String!
+    common_name: String!
+    categories: [String]
+    prevalence: String
+    acuteness: String
+    severity: String!
+    extras: ConditionExtras
+  }
+
+  type TriageSeriousConditions {
+    id: ID!
+    name: String!
+    common_name: String!
+    is_emergency: Boolean!
+  }
+
+  type TriageResult {
+    triage_level: String
+    serious: [TriageSeriousConditions]
+  }
+
   ### Mutation inputs
   input Evidence {
     id: ID!
@@ -83,10 +110,12 @@ const typeDefs = gql`
   ### Invocations
   type Query {
     checkInfo: Info!
+    checkCondition(id: ID!): ConditionCheck!
   }
 
   type Mutation {
     diagnoseSymptoms(diagnosis: Diagnosis!): DiagnosisResult!
+    checkTriage(diagnosis: Diagnosis!) : TriageResult!
     chatFinalResponse(complaint: ChatComplaint!): ChatResponse!
   }
 `;
