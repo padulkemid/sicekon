@@ -6,6 +6,8 @@ import {
   checkTriage,
 } from '../entities/symptomsResolver';
 
+import { register, login, logout } from '../entities/userResolver';
+
 const resolvers = {
   Query: {
     checkInfo,
@@ -15,6 +17,10 @@ const resolvers = {
     diagnoseSymptoms,
     chatFinalResponse,
     checkTriage,
+
+    register,
+    login,
+    logout,
   },
 };
 

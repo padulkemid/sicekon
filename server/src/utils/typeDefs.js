@@ -102,6 +102,32 @@ const typeDefs = gql`
     context: [String]
   }
 
+  ### USER
+
+  input UserRegister {
+    username: String!
+    email: String!
+    password: String!
+  }
+
+  input UserLogin {
+    email: String!
+    password: String!
+  }
+
+  type User {
+    id: ID!
+    username: String!
+    email : String!
+    password: String!
+  }
+
+  type ResultOutput {
+    result: String!
+  }
+
+  ### END USER
+
   ### Generic returns
   type GenericResult {
     result: String!
@@ -117,6 +143,12 @@ const typeDefs = gql`
     diagnoseSymptoms(diagnosis: Diagnosis!): DiagnosisResult!
     checkTriage(diagnosis: Diagnosis!) : TriageResult!
     chatFinalResponse(complaint: ChatComplaint!): ChatResponse!
+
+    ### User mutations
+
+    register(input: UserRegister!): ResultOutput!
+    login(input: UserLogin!): ResultOutput!
+    logout: ResultOutput!
   }
 `;
 
