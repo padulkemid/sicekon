@@ -18,6 +18,9 @@
     for more further info you could go to the docs NLP
   - Triage level for emergency includes `emergency`, `consultation`, `self_care`
     3 of this will be explained later ( usability for client )
+  - Users are optional, but feature is added ( because symptom is emergency
+      hence it don't need any user at all ), but it is added to preserve
+      historical conditions about your symptoms before
 
 ```graphql
 ### Check api key and api id
@@ -97,5 +100,51 @@ mutation checkTriage($diagnosis: Diagnosis!) {
     }
   }
 }
+
+### Register new user
+mutation register($input: UserRegister!) {
+  register(input: $input) {
+    result
+  }
+}
+
+### Login user
+mutation login($input: UserLogin!) {
+  login(input: $input) {
+    username
+    email
+    sex
+    age
+    result
+  }
+}
+
+### Logout user
+mutation logout {
+  logout {
+    result
+  }
+}
+
+### Get historical conditions for respected / logged in user
+### Warning: NEED TO LOGIN ###
+query getHistory {
+  getHistory {
+    email
+    conditions
+    date
+  }
+}
+
+### Create new history of conditions in database
+### Warning: NEED TO LOGIN ###
+mutation createHistory($input: NewHistory!) {
+  createHistory(input: $input) {
+    email
+    conditions
+    date
+  }
+}
+
 ```
 
