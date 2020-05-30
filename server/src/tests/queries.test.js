@@ -237,7 +237,36 @@ describe('GraphQL and Mongoose Test', () => {
   });
 
   describe('Mongoose [mongoDb] data test', () => {
-    describe('User', () => {
+    describe('Users [Errors]', () => {
+      it('should not be able to get any conditions history', async () => {
+        const res = await query({
+          query: getHistory,
+        });
+
+        expect(res.errors).toBeUndefined();
+        expect(res.data).not.toBeUndefined();
+        expect(res.data).toBeDefined();
+        expect(res.data.getHistory).toEqual([]);
+      });
+
+      it('should not be able to create any conditions history', async () => {
+        const input = {
+          conditions: ['c_671', 'c_55'],
+          date: '2020-05-30T17:43:18.793Z',
+        };
+
+        const res = await mutate({
+          mutation: createHistory,
+          variables: {
+            input,
+          },
+        });
+
+        expect(res.errors).toBeDefined();
+      });
+    });
+
+    describe('Users', () => {
       it('should create new User based on given mock data', async () => {
         const input = {
           sex: 'male',
@@ -261,6 +290,33 @@ describe('GraphQL and Mongoose Test', () => {
         expect(res.data).toBeDefined();
         expect(result).toBeDefined();
         expect(result).toEqual(expect.any(String));
+      });
+
+      it('should not be able to login because the password is wrong', async () => {
+        const input = {
+          email: 'test@testing.com',
+          password: 'wrongpassword',
+        };
+
+        const res = await mutate({
+          mutation: login,
+          variables: {
+            input,
+          },
+        });
+
+        const { username, email, sex, age, result } = res.data.login;
+
+        expect(res.errors).toBeUndefined();
+        expect(res.data).not.toBeUndefined();
+        expect(res.data).toBeDefined();
+        expect(username).toMatch(/secret/);
+        expect(email).toMatch(/secret@secret.secret/);
+        expect(sex).toMatch(/secret/);
+        expect(age).toBeFalsy();
+        expect(age).not.toBeTruthy();
+        expect(result).toBeDefined();
+        expect(result).toMatch(/Wrong password!/);
       });
 
       it('should login after test user is been created', async () => {
@@ -323,7 +379,7 @@ describe('GraphQL and Mongoose Test', () => {
         expect(date).toEqual(expect.any(String));
       });
 
-      it('it should get users history conditions', async () => {
+      it('should get users history conditions', async () => {
         const res = await query({
           query: getHistory,
         });

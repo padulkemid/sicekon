@@ -18,11 +18,15 @@ const login = async (_, { input }) => {
   const { email, password } = input;
   const getUser = await User.findOne({ email });
   const compare = await bcrypt.compare(password, getUser.password);
-  const { username, email: dbEmail, sex, age } = getUser;
+  let { username, email: dbEmail, sex, age } = getUser;
 
   let result = null;
 
   if (!compare) {
+    username = 'secret';
+    dbEmail = 'secret@secret.secret';
+    sex = 'secret';
+    age = 0;
     result = 'Wrong password!';
   } else {
     const token = jwt.sign({ email }, process.env.JWT_SECRET);

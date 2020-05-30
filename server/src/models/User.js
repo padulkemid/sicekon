@@ -28,14 +28,10 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    next();
-  } else {
-    const saltRounds = Number(process.env.SALT);
-    const hash = await bcrypt.hash(this.password, saltRounds);
-    this.password = hash;
-    next();
-  }
+  const saltRounds = Number(process.env.SALT);
+  const hash = await bcrypt.hash(this.password, saltRounds);
+  this.password = hash;
+  next();
 });
 
 const User = mongoose.model('User', userSchema);

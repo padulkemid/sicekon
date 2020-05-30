@@ -8,14 +8,9 @@ const verify = async () => {
   const token = await redis.get('token');
   if (!token) {
     parentEmailCheck = null;
-    console.log('No token yet, result -> ', token);
   } else {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        console.log(err);
-      } else {
-        parentEmailCheck = decoded.email;
-      }
+    jwt.verify(token, process.env.JWT_SECRET, (_, decoded) => {
+      parentEmailCheck = decoded.email;
     });
   }
 };
@@ -38,7 +33,7 @@ const createHistory = async (_, { input }) => {
   let returnedHistory = null;
 
   if (!parentEmailCheck) {
-    console.log('not logged in.');
+    returnedHistory = null;
   } else {
     const struct = {
       email: parentEmailCheck,
