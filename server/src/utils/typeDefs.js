@@ -128,7 +128,30 @@ const typeDefs = gql`
     sex: String!
     age: Int!
   }
+
+  type UserLoginReturn {
+    username: String
+    email: String
+    sex: String
+    age: Int
+    result: String!
+  }
+
   ### END USER
+
+  ### History
+  type History {
+    email: String
+    conditions: [String]
+    date: String
+  }
+
+  input NewHistory {
+    conditions: [String!]!
+    date: String!
+  }
+
+  ### END History
 
   ### Generic returns
   type GenericResult {
@@ -137,8 +160,12 @@ const typeDefs = gql`
 
   ### Invocations
   type Query {
+    ### API Queries
     checkInfo: Info!
     checkCondition(id: ID!): ConditionCheck!
+
+    ### History Queries
+    getHistory: [History]
   }
 
   type Mutation {
@@ -149,8 +176,11 @@ const typeDefs = gql`
 
     ### User Mutations
     register(input: UserRegister!): GenericResult!
-    login(input: UserLogin!): GenericResult!
+    login(input: UserLogin!): UserLoginReturn!
     logout: GenericResult!
+
+    ### History Mutations
+    createHistory(input: NewHistory!): History!
   }
 `;
 

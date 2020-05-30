@@ -18,6 +18,7 @@ const login = async (_, { input }) => {
   const { email, password } = input;
   const getUser = await User.findOne({ email });
   const compare = await bcrypt.compare(password, getUser.password);
+  const { username, email: dbEmail, sex, age } = getUser;
 
   let result = null;
 
@@ -29,7 +30,15 @@ const login = async (_, { input }) => {
     result = `Successfully logged in with email: ${email}`;
   }
 
-  return { result };
+  const struct = {
+    username,
+    email: dbEmail,
+    sex,
+    age,
+    result,
+  };
+
+  return struct;
 };
 
 const logout = async () => {

@@ -1,3 +1,5 @@
+import { register, login, logout } from '../entities/userResolver';
+import { getHistory, createHistory } from '../entities/historyResolver';
 import {
   checkInfo,
   checkCondition,
@@ -6,12 +8,11 @@ import {
   checkTriage,
 } from '../entities/symptomsResolver';
 
-import { register, login, logout } from '../entities/userResolver';
-
 const resolvers = {
   Query: {
     checkInfo,
     checkCondition,
+    getHistory,
   },
   Mutation: {
     diagnoseSymptoms,
@@ -21,6 +22,8 @@ const resolvers = {
     register,
     login,
     logout,
+
+    createHistory,
   },
 };
 
