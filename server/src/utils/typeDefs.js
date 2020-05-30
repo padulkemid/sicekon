@@ -2,6 +2,7 @@ import { gql } from 'apollo-server';
 
 const typeDefs = gql`
   ### Query types
+  ### API
   type Info {
     updated_at: String!
     conditions_count: Int!
@@ -78,8 +79,10 @@ const typeDefs = gql`
     triage_level: String
     serious: [TriageSeriousConditions]
   }
+  ### END API
 
   ### Mutation inputs
+  ### API
   input Evidence {
     id: ID!
     choice_id: String!
@@ -101,10 +104,12 @@ const typeDefs = gql`
     text: String!
     context: [String]
   }
+  ### END API
 
   ### USER
-
   input UserRegister {
+    sex: String!
+    age: Int!
     username: String!
     email: String!
     password: String!
@@ -118,14 +123,11 @@ const typeDefs = gql`
   type User {
     id: ID!
     username: String!
-    email : String!
+    email: String!
     password: String!
+    sex: String!
+    age: Int!
   }
-
-  type ResultOutput {
-    result: String!
-  }
-
   ### END USER
 
   ### Generic returns
@@ -140,15 +142,15 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    ### API Mutations
     diagnoseSymptoms(diagnosis: Diagnosis!): DiagnosisResult!
-    checkTriage(diagnosis: Diagnosis!) : TriageResult!
+    checkTriage(diagnosis: Diagnosis!): TriageResult!
     chatFinalResponse(complaint: ChatComplaint!): ChatResponse!
 
-    ### User mutations
-
-    register(input: UserRegister!): ResultOutput!
-    login(input: UserLogin!): ResultOutput!
-    logout: ResultOutput!
+    ### User Mutations
+    register(input: UserRegister!): GenericResult!
+    login(input: UserLogin!): GenericResult!
+    logout: GenericResult!
   }
 `;
 

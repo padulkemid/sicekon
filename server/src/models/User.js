@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: [6, 'too few charachters'],
   },
+  sex: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+  },
 });
 
 userSchema.pre('save', async function (next) {
