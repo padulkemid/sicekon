@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node -r dotenv/config src/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage --runInBand --detectOpenHandles --forceExit"
+  },
+  "directories": {
+    "test": "src/tests"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +24,19 @@
       "eslint src/*.js --fix-dry-run"
     ]
   },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/setupTests.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "./dist"
+    ],
+    "moduleNameMapper": {
+      "^mongoose$": "<rootDir>/node_modules/mongoose"
+    }
+  },
   "dependencies": {
     "apollo-server": "^2.14.0",
     "bcrypt": "^4.0.1",
@@ -35,6 +51,7 @@
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.1",
     "@babel/node": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.1",
     "apollo-server-testing": "^2.14.1",
@@ -44,6 +61,7 @@
     "eslint-plugin-import": "^2.20.2",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
+    "jest-cli": "^26.0.1",
     "lint-staged": "^10.2.6",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
