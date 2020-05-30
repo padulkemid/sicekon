@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -r dotenv/config src/index.js"
+    "start": "nodemon --exec babel-node -r dotenv/config src/index.js",
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +35,10 @@
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.1",
     "@babel/node": "^7.10.1",
+    "@babel/polyfill": "^7.10.1",
     "@babel/preset-env": "^7.10.1",
+    "apollo-server-testing": "^2.14.1",
+    "babel-jest": "^26.0.1",
     "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
