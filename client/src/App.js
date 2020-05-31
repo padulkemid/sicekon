@@ -5,7 +5,7 @@ import { Home, Info, Symptom } from './pages';
 import { Logo } from './components';
 import { AnimatePresence } from 'framer-motion';
 
-function App() {
+export default function App() {
   const location = useLocation();
   return (
     <div className="App">
@@ -26,5 +26,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

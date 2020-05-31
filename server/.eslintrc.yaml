@@ -1,0 +1,14 @@
+---
+env:
+  browser: true
+  commonjs: true
+  es6: true
+  node: true
+  jest: true
+extends:
+- airbnb-base
+rules:
+  no-unused-vars: warn
+  no-console: off
+  camelcase: off
+  import/prefer-default-export: off

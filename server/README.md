@@ -7,7 +7,7 @@
   - Please do `npm install` after clone
   - To run do `npm run start` and to test do `npm run test`
   - Currently tests is only for truthy data yet, error tests is on the way
-  - To run test properly, edit `server/setupTests_template.js` to be the same as
+  - To run test properly, edit `./setupTests_template.js` to be the same as
     your `.env`, and **DON'T FORGET TO CHANGE IT INTO** `setupTests.js`
   - All results is not filtered (full data from api, but extras is removed [cuz
       its meh 🙃])
