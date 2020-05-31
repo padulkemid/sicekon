@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,30 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.App {
+  background-image: url('./assets/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+}
+.homeContent {
+  top: 40%; 
+  left: 45%; 
+  position: absolute;
+}
+.infoContent {
+  top: 40%;
+  left: 45%; 
+  position: absolute;
+}
+.symptomContent {
+  top: 40%; 
+  left: 45%; 
+  position: absolute;
+}
+.point {
+  cursor: pointer;
 }
