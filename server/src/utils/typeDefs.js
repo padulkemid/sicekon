@@ -79,7 +79,23 @@ const typeDefs = gql`
     triage_level: String
     serious: [TriageSeriousConditions]
   }
+
+  type SearchResult {
+    id: String!
+    label: String!
+  }
   ### END API
+
+  ### Query inputs
+  ### API
+
+  input SearchParams {
+    phrase: String!
+    sex: String!
+    age: Int!
+    max_results: Int!
+    type: String!
+  }
 
   ### Mutation inputs
   ### API
@@ -163,6 +179,7 @@ const typeDefs = gql`
     ### API Queries
     checkInfo: Info!
     checkCondition(id: ID!): ConditionCheck!
+    searchObservations(params: SearchParams!): [SearchResult!]!
 
     ### History Queries
     getHistory: [History]
