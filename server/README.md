@@ -65,6 +65,27 @@ query checkCondition($id: ID!) {
 ```
 
 ```graphql
+query searchObservations($params: SearchParams!) {
+  searchObservations(params: $params) {
+    id
+    label
+  }
+}
+```
+
+```json
+{
+  "params": {
+    "phrase": "headache",
+    "sex": "male",
+    "age": 20,
+    "max_results": 10,
+    "type": "symptom"
+  }
+}
+```
+
+```graphql
 ### Symptom diagnosis
 mutation diagnoseSymptoms($diagnosis: Diagnosis!) {
   diagnoseSymptoms(diagnosis: $diagnosis) {
