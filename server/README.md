@@ -263,7 +263,7 @@ mutation login($input: UserLogin!) {
 ```json
 {
 	"input": {
-		"email": "aury@gmail.com",
+		"email": "aku_sudarmi29@gmail.com",
 		"password": "123456"
 	}
 }
