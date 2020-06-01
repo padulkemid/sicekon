@@ -36,7 +36,9 @@ query checkInfo {
     symptoms_count
   }
 }
+```
 
+```graphql
 ### Check conditions details
 query checkCondition($id: ID!) {
   checkCondition(id: $id) {
@@ -53,6 +55,16 @@ query checkCondition($id: ID!) {
   }
 }
 
+```
+
+```json
+{
+	"id": "c_563"
+}
+
+```
+
+```graphql
 ### Symptom diagnosis
 mutation diagnoseSymptoms($diagnosis: Diagnosis!) {
   diagnoseSymptoms(diagnosis: $diagnosis) {
@@ -78,6 +90,53 @@ mutation diagnoseSymptoms($diagnosis: Diagnosis!) {
   }
 }
 
+```
+
+```json
+{
+	"diagnosis": {
+		"sex": "male",
+		"age": 20,
+		"evidence": [
+			{
+				"id": "s_1193",
+				"choice_id": "present",
+				"initial": true
+			},
+			{
+				"id": "s_488",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_418",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_98",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_100",
+				"choice_id": "absent"
+			},
+			{
+				"id": "s_1535",
+				"choice_id": "unknown"
+			},
+			{
+				"id": "s_25",
+				"choice_id": "present"
+			}
+		],
+		"extras": {
+			"disable_groups": true
+		}
+	}
+}
+
+```
+
+```graphql
 ### Chat bot final response
 mutation chatFinalResponse($complaint: ChatComplaint!) {
   chatFinalResponse(complaint: $complaint) {
@@ -93,6 +152,18 @@ mutation chatFinalResponse($complaint: ChatComplaint!) {
   }
 }
 
+```
+
+```json
+{
+	"complaint": {
+		"text": "my stomach hurts"
+	}
+}
+
+```
+
+```graphql
 ### Triage response after diagnosis
 mutation checkTriage($diagnosis: Diagnosis!) {
   checkTriage(diagnosis: $diagnosis) {
@@ -106,6 +177,53 @@ mutation checkTriage($diagnosis: Diagnosis!) {
   }
 }
 
+```
+
+```json
+{
+	"diagnosis": {
+		"sex": "male",
+		"age": 20,
+		"evidence": [
+			{
+				"id": "s_1193",
+				"choice_id": "present",
+				"initial": true
+			},
+			{
+				"id": "s_488",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_418",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_98",
+				"choice_id": "present"
+			},
+			{
+				"id": "s_100",
+				"choice_id": "absent"
+			},
+			{
+				"id": "s_1535",
+				"choice_id": "unknown"
+			},
+			{
+				"id": "s_25",
+				"choice_id": "present"
+			}
+		],
+		"extras": {
+			"disable_groups": true
+		}
+	}
+}
+
+```
+
+```graphql
 ### Register new user
 mutation register($input: UserRegister!) {
   register(input: $input) {
@@ -113,6 +231,22 @@ mutation register($input: UserRegister!) {
   }
 }
 
+```
+
+```json
+{
+	"input": {
+		"sex": "female",
+		"age": 16,
+		"username": "sudarmi",
+		"email": "aku_sudarmi29@rocketmail.com",
+		"password": "123456"
+	}
+}
+
+```
+
+```graphql
 ### Login user
 mutation login($input: UserLogin!) {
   login(input: $input) {
@@ -124,6 +258,19 @@ mutation login($input: UserLogin!) {
   }
 }
 
+```
+
+```json
+{
+	"input": {
+		"email": "aury@gmail.com",
+		"password": "123456"
+	}
+}
+
+```
+
+```graphql
 ### Logout user
 mutation logout {
   logout {
@@ -131,6 +278,9 @@ mutation logout {
   }
 }
 
+```
+
+```graphql
 ### Get historical conditions for respected / logged in user
 ### Warning: NEED TO LOGIN ###
 query getHistory {
@@ -141,6 +291,9 @@ query getHistory {
   }
 }
 
+```
+
+```graphql
 ### Create new history of conditions in database
 ### Warning: NEED TO LOGIN ###
 mutation createHistory($input: NewHistory!) {
@@ -149,6 +302,19 @@ mutation createHistory($input: NewHistory!) {
     conditions
     date
   }
+}
+
+```
+
+```json
+{
+	"input": {
+		"conditions": [
+			"c_671",
+			"c_55"
+		],
+		"date": "2020-05-30T17:43:18.793Z"
+	}
 }
 
 ```
