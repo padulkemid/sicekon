@@ -27,7 +27,16 @@ const checkCondition = `
   }
 `;
 
-export { checkInfo, checkCondition };
+const searchObservations = `
+  query searchObservations($params: SearchParams!) {
+    searchObservations(params: $params) {
+      id
+      label
+    }
+  }
+`;
+
+export { checkInfo, checkCondition, searchObservations };
 
 // User History
 
