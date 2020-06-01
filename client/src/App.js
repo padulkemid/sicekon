@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { Home, Info, Symptom, LoginRegister } from './pages';
+import { Home, Info, Check, Map, LoginRegister } from './pages';
 import { Logo, MenuBar } from './components';
 import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
   const location = useLocation();
+  const [showLoginRegister, setShowLoginRegister] = useState(null);
+
   return (
     <div className="App">
-      <MenuBar />
+      <MenuBar setShowLoginRegister={setShowLoginRegister} />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/">
@@ -18,17 +20,20 @@ export default function App() {
           <Route path="/info">
             <Info />
           </Route>
-          <Route path="/symptom">
-            <Symptom />
+          <Route path="/check">
+            <Check />
           </Route>
-          <Route path="/login">
-            <LoginRegister />
-          </Route>
-          <Route path="/register">
-            <LoginRegister />
+          <Route path="/map">
+            <Map />
           </Route>
         </Switch>
       </AnimatePresence>
+      {showLoginRegister && (
+        <LoginRegister
+          showLoginRegister={showLoginRegister}
+          setShowLoginRegister={setShowLoginRegister}
+        />
+      )}
     </div>
   );
 }

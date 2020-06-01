@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/MenuBar.scss'
 
-export default () => {
+export default ({ setShowLoginRegister }) => {
+    let location = useLocation();
     return (
         <div className="menu-bar">
             <div className="left bar">
@@ -13,23 +14,23 @@ export default () => {
                         <p className="subtitle">Symptom Check Online</p>
                     </div>
                 </Link>
-                <Link to="/check" class="btn menubtn">
-                    <p class="menutext">Check</p>
+                <Link to="/check" className="btn menubtn">
+                    <p className="menutext">Check</p>
                 </Link>
-                <Link to="/map" class="btn menubtn">
-                    <p class="menutext">Map</p>
+                <Link to="/map" className="btn menubtn">
+                    <p className="menutext">Map</p>
                 </Link>
-                <Link to="/info" class="btn menubtn">
-                    <p class="menutext">Info</p>
+                <Link to="/info" className="btn menubtn">
+                    <p className="menutext">Info</p>
                 </Link>
             </div>
             <div className="right bar">
-                <Link to="/login" class="btn menubtn">
-                    <p class="menutext">Login</p>
-                </Link>
-                <Link to="/register" class="btn menubtn">
-                    <p class="menutext">Register</p>
-                </Link>
+                <div className="btn menubtn" onClick={() => { setShowLoginRegister('login') }}>
+                    <p className="menutext">Login</p>
+                </div>
+                <div className="btn menubtn" onClick={() => { setShowLoginRegister('register') }}>
+                    <p className="menutext">Register</p>
+                </div>
             </div>
         </div>
     )

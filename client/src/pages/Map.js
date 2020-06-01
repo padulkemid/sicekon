@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 import { useHistory } from 'react-router-dom'
 import { motion } from "framer-motion";
 
-export default function PatientInfo() {
+export default function () {
   const history = useHistory()
 
   const pageTransition = {
@@ -16,10 +16,10 @@ export default function PatientInfo() {
     },
   };
   return (
-    <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='infoContent'>
+    <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='symptomContent'>
       <h3>
-        Info Page
-        </h3>
+        Map page
+      </h3>
     </motion.div>
   );
 }
