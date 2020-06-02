@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import './styles/Loading.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { Home, Info, Check, Map, LoginRegister } from './pages';
 import { MenuBar } from './components';

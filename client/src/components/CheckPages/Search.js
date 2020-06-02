@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useConstant } from 'react';
 import debounce from "lodash.debounce";
 import Autosuggest from 'react-autosuggest';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from '@apollo/react-hooks';
 import { SEARCH_OBSERVATIONS } from '../../schema';
 import '../../styles/Search.scss';

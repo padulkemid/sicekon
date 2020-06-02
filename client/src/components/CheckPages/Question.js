@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useMutation } from '@apollo/react-hooks';
-import { DIAGNOSE_SYMPTOMS } from "../../schema";
+import { DIAGNOSE_SYMPTOMS, CHECK_TRIAGE } from "../../schema";
 
-export default function ({ setIsComplete, values, setValues, addSymptom }) {
+export default function ({ setIsComplete, values, setValues, addSymptom, setDiagnosis }) {
 
     const [question, setQuestion] = useState(0);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         getQuestion();
-        if (questionsAnswered > 2)
-            setIsComplete(true);
-        else
+        if (questionsAnswered > 2) {
+        }
+        else {
             setIsComplete(false);
+        }
     }, [questionsAnswered])
 
     const [Diagnose_Symptoms] = useMutation(DIAGNOSE_SYMPTOMS);
     const diagnoseSymptoms = async (diagnosis) => {
+        setIsComplete(false);
+        setIsLoading(true);
         try {
             const result = await Diagnose_Symptoms({
                 variables: {
@@ -25,8 +29,14 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
             });
             console.log(result)
             setQuestion(result.data.diagnoseSymptoms.question);
+            setIsLoading(false);
+            if (questionsAnswered > 2) {
+                setIsComplete(true);
+            }
+            setDiagnosis(result.data.diagnoseSymptoms)
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     }
 
@@ -71,13 +81,18 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
 
     return (
         <div className="page-content questions">
-            <p>{question.text}</p>
+            {isLoading ?
+                <div className="loading">
+                    <div class="lds-heart"><div></div></div>
+                </div> :
+                <p className="question">{question.text}</p>
+            }
             <div className="btn-container">
                 {
                     question.items && question.items[0] && question.items[0].choices &&
                     question.items[0].choices.map((choice) => {
                         return (
-                            <Button key={choice.id} onClick={() => { handleClick('answer', choice.id) }} className={`btn ${choice.id}`} variant="contained" color="primary">
+                            <Button key={choice.id} onClick={() => { handleClick('answer', choice.id) }} className={`btn ${choice.id}`} variant="contained" color="primary" disabled={isLoading}>
                                 {choice.label}
                             </Button>
                         )

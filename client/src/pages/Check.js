@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { GenderAge, Symptom, Question, Result } from '../components/CheckPages';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { GET_USER_DATA, DIAGNOSE_SYMPTOMS } from "../schema";
+import { GET_USER_DATA, CHECK_TRIAGE } from "../schema";
 import '../styles/Check.scss';
 import '../styles/CheckPage.scss';
 
@@ -29,17 +29,18 @@ function getSteps() {
   return ['Info', 'Symptoms', 'Questions', 'Diagnosis'];
 }
 
-function getStepContent(stepIndex, setIsComplete, userData, values, setValues, addSymptom) {
+function getStepContent(stepIndex, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage }) {
   switch (stepIndex) {
     case 0:
+      // return (<Result setIsComplete={setIsComplete} values={values} setValues={setValues} />);
       return (<GenderAge setIsComplete={setIsComplete} userData={userData} values={values} setValues={setValues} />);
     case 1:
       return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} />);
     case 2:
-      return (<Question setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} />);
+      return (<Question setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} setDiagnosis={setDiagnosis} />);
     case 3:
-      return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} />);
-    // return (<Result setIsComplete={setIsComplete} values={values} setValues={setValues} />);
+      // return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} />);
+      return (<Result diagnosis={diagnosis} triage={triage} />);
     default:
       return 'Unknown stepIndex';
   }
@@ -51,24 +52,29 @@ export default function () {
     commonSymptoms: [
       {
         "id": "s_331",
-        "label": "nose congestion",
+        "name": "nose congestion",
       },
     ],
     gender: ''
   });
   const [activeStep, setActiveStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [diagnosis, setDiagnosis] = useState({});
+  const [triage, setTriage] = useState({});
   const steps = getSteps();
 
-  const [Diagnose_Symptoms] = useMutation(DIAGNOSE_SYMPTOMS);
-  const diagnoseSymptoms = async (diagnosis) => {
+  const [Check_Triage] = useMutation(CHECK_TRIAGE);
+  const checkTriage = async (diagnosis) => {
     try {
-      const result = await Diagnose_Symptoms({
+      console.log('triaged', JSON.stringify(diagnosis))
+      const result = await Check_Triage({
         variables: {
           diagnosis
         }
       });
-      console.log(result)
+      console.log('triage', result)
+      if (result.data && result.data.checkTriage)
+        setTriage(result.data.checkTriage);
     } catch (error) {
       console.log(error);
     }
@@ -94,18 +100,10 @@ export default function () {
       for (let i in symptoms) {
         evidence.push({
           id: symptoms[i].id,
-          choice_id: 'present'
+          choice_id: 'present',
         });
       }
-      console.log({
-        sex,
-        age: Number(age),
-        evidence,
-        "extras": {
-          "disable_groups": true
-        }
-      })
-      diagnoseSymptoms({
+      checkTriage({
         sex,
         age: Number(age),
         evidence,
@@ -155,7 +153,7 @@ export default function () {
         </Stepper>
         <div className="content">
           <div className="step-content">
-            {getStepContent(activeStep, setIsComplete, userData, values, setValues, addSymptom)}
+            {getStepContent(activeStep, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage })}
           </div>
           <div className="btn-group">
             {activeStep === steps.length - 1 ?

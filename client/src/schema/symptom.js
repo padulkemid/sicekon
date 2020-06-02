@@ -73,7 +73,7 @@ mutation chatFinalResponse($complaint: ChatComplaint!) {
   }
 }`;
 
-export const CHAT_TRIAGE = gql`
+export const CHECK_TRIAGE = gql`
 mutation checkTriage($diagnosis: Diagnosis!) {
   checkTriage(diagnosis: $diagnosis) {
     triage_level

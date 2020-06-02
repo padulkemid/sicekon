@@ -55,9 +55,9 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
                             {
                                 symptom && symptom.id ?
                                     symptom.chosen ?
-                                        <Chip label={symptom.label} onDelete={() => { handleDelete('commonSymptoms', symptom.id) }} className="chip" />
+                                        <Chip label={symptom.name} onDelete={() => { handleDelete('commonSymptoms', symptom.id) }} className="chip" />
                                         :
-                                        <Chip label={symptom.label} onClick={() => { handleClick('commonSymptoms', symptom.id) }} color="primary" variant="outlined" className="chip" />
+                                        <Chip label={symptom.name} onClick={() => { handleClick('commonSymptoms', symptom.id) }} color="primary" variant="outlined" className="chip" />
                                     : <></>
                             }
                         </div>)
@@ -68,7 +68,7 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
                 <p>Symptoms</p>
                 <div className="symptoms">
                     {values.symptoms && values.symptoms.map((symptom, idx) => {
-                        return (<Chip key={symptom.id} label={symptom.label} onDelete={() => { handleDelete('symptoms', symptom.id) }} color="primary" className="chip" />)
+                        return (<Chip key={symptom.id} label={symptom.name} onDelete={() => { handleDelete('symptoms', symptom.id) }} color="primary" className="chip" />)
                     })}
                 </div>
             </div>
