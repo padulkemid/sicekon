@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom';
 import '../styles/MenuBar.scss'
 
 export default ({ setShowLoginRegister }) => {
-    let location = useLocation();
     return (
         <div className="menu-bar">
             <div className="left bar">

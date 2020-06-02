@@ -1,0 +1,36 @@
+.page-content {
+  p {
+    margin: 0;
+    margin-bottom: 0.4em;
+  }
+  .input-field {
+    width: 100%;
+    margin: 0.4em 0;
+  }
+  &.symptom {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'picker list';
+    .chip {
+      margin: 0.4em;
+    }
+    .picker {
+      grid-area: picker;
+      padding: 1em;
+    }
+    .list {
+      grid-area: list;
+      padding: 1em;
+      background: #ffe6e6;
+      border: 1px solid #eaeaea;
+      border-radius: 0.5em;
+      .symptoms {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

@@ -41,8 +41,20 @@
   /* background-image: url('./assets/bg.jpg'); */
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'menu-bar'
+    'content';
+}
+.App .content {
+  grid-area: content;
+}
+.App .menu-bar {
+  grid-area: menu-bar;
 }
 .homeContent {
   top: 40%;
