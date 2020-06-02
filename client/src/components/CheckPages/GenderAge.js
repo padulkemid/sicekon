@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { GenderInput, TextInput } from '../';
 
-export default function ({ setIsComplete }) {
-
-    const [values, setValues] = useState({
-        age: null,
-        gender: null,
-    });
+export default function ({ setIsComplete, userData, values, setValues }) {
 
     useEffect(() => {
-        if (values.age && values.gender)
+        if (userData && userData.userData) {
+            const { userData: { age, sex } } = userData;
+            const newValues = { ...values, age, sex };
+            setValues(newValues);
+        }
+    }, [userData, setValues])
+
+    useEffect(() => {
+        console.log('aaaaa', values.sex)
+        if (values.age && values.sex)
             setIsComplete(true);
         else
             setIsComplete(false);
-    }, [values.age, values.gender, setIsComplete])
+    }, [values.age, values.sex, setIsComplete])
 
     const handleChange = (prop) => (event) => {
         const newValues = { ...values, [prop]: event.target.value };
         setValues(newValues);
-        console.log(newValues);
     };
 
     return (
         <div className="page-content">
-            <p>What's the patient's age and gender?</p>
-            <TextInput label="Age" onChange={handleChange('age')} isAge={true} />
-            <GenderInput onChange={handleChange('gender')} />
+            <p>What's your age and gender?</p>
+            <TextInput label="Age" onChange={handleChange('age')} isAge={true} value={values.age ? values.age : ''} />
+            <GenderInput onChange={handleChange('sex')} value={values.sex ? values.sex : ''} />
         </div>
     );
 }

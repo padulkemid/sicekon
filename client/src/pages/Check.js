@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -6,7 +6,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { GenderAge, Symptom, Result } from '../components/CheckPages';
+import { GenderAge, Symptom, Question, Result } from '../components/CheckPages';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { GET_USER_DATA, DIAGNOSE_SYMPTOMS } from "../schema";
 import '../styles/Check.scss';
 import '../styles/CheckPage.scss';
 
@@ -24,17 +26,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Info', 'Symptoms', 'Diagnosis'];
+  return ['Info', 'Symptoms', 'Questions', 'Diagnosis'];
 }
 
-function getStepContent(stepIndex, setIsComplete) {
+function getStepContent(stepIndex, setIsComplete, userData, values, setValues, addSymptom) {
   switch (stepIndex) {
-    case 1:
-      return (<GenderAge setIsComplete={setIsComplete} />);
     case 0:
-      return (<Symptom setIsComplete={setIsComplete} />);
+      return (<GenderAge setIsComplete={setIsComplete} userData={userData} values={values} setValues={setValues} />);
+    case 1:
+      return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} />);
     case 2:
-      return (<Result setIsComplete={setIsComplete} />);
+      return (<Question setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} />);
+    case 3:
+      return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} />);
+    // return (<Result setIsComplete={setIsComplete} values={values} setValues={setValues} />);
     default:
       return 'Unknown stepIndex';
   }
@@ -42,9 +47,32 @@ function getStepContent(stepIndex, setIsComplete) {
 
 export default function () {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [isComplete, setIsComplete] = React.useState(false);
+  const [values, setValues] = useState({
+    commonSymptoms: [
+      {
+        "id": "s_331",
+        "label": "nose congestion",
+      },
+    ],
+    gender: ''
+  });
+  const [activeStep, setActiveStep] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
   const steps = getSteps();
+
+  const [Diagnose_Symptoms] = useMutation(DIAGNOSE_SYMPTOMS);
+  const diagnoseSymptoms = async (diagnosis) => {
+    try {
+      const result = await Diagnose_Symptoms({
+        variables: {
+          diagnosis
+        }
+      });
+      console.log(result)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const pageTransition = {
     init: {
@@ -57,19 +85,63 @@ export default function () {
     },
   };
 
+  const { data: userData } = useQuery(GET_USER_DATA);
+
   const handleNext = () => {
+    if (activeStep === 2) {
+      const { sex, age, symptoms } = values;
+      const evidence = [];
+      for (let i in symptoms) {
+        evidence.push({
+          id: symptoms[i].id,
+          choice_id: 'present'
+        });
+      }
+      console.log({
+        sex,
+        age: Number(age),
+        evidence,
+        "extras": {
+          "disable_groups": true
+        }
+      })
+      diagnoseSymptoms({
+        sex,
+        age: Number(age),
+        evidence,
+        "extras": {
+          "disable_groups": true
+        }
+      });
+    }
+
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setIsComplete(false);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    setIsComplete(true);
   };
 
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const addSymptom = item => {
+    let symptoms = [];
+    let commonSymptoms = [];
+    if (values.symptoms) {
+      symptoms = [...values.symptoms];
+      if (symptoms.findIndex(sym => { return sym.id === item.id }) < 0)
+        symptoms.push(item);
+    }
+    if (values.commonSymptoms) {
+      commonSymptoms = [...values.commonSymptoms];
+      if (commonSymptoms.findIndex(sym => { return sym.id === item.id }) >= 0)
+        commonSymptoms[commonSymptoms.findIndex(sym => { return sym.id === item.id })].chosen = true;
+    }
+    const newValues = { ...values, symptoms, commonSymptoms };
+    setValues(newValues);
+  }
 
   return (
     <div className="content">
@@ -81,25 +153,18 @@ export default function () {
             </Step>
           ))}
         </Stepper>
-        {activeStep === steps.length ?
-          (
-            <>
-              <div className="content">
-                <div className="step-content">
-                  <Typography className={classes.instructions}>All steps completed</Typography>
-                </div>
-                <div className="btn-group">
+        <div className="content">
+          <div className="step-content">
+            {getStepContent(activeStep, setIsComplete, userData, values, setValues, addSymptom)}
+          </div>
+          <div className="btn-group">
+            {activeStep === steps.length - 1 ?
+              (
+                <>
                   <Button onClick={handleReset}>Reset</Button>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="content">
-                <div className="step-content">
-                  {getStepContent(activeStep, setIsComplete)}
-                </div>
-                <div className="btn-group">
+                </>
+              ) : (
+                <>
                   <Button
                     disabled={activeStep === 0}
                     onClick={handleBack}
@@ -109,13 +174,13 @@ export default function () {
                   </Button>
                   <Button variant="contained" color="primary" onClick={handleNext}
                     disabled={!isComplete}>
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    {activeStep === steps.length - 2 ? 'View Results' : 'Next'}
                   </Button>
-                </div>
-              </div>
-            </>
-          )
-        }
+                </>
+              )
+            }
+          </div>
+        </div>
       </motion.div>
     </div >
   );

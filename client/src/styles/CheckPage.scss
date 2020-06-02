@@ -20,6 +20,9 @@
       grid-area: picker;
       padding: 1em;
     }
+    .common-symp {
+      margin-top: 2em;
+    }
     .list {
       grid-area: list;
       padding: 1em;
@@ -30,6 +33,32 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+      }
+    }
+  }
+  &.questions {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1em 1fr;
+    grid-template-areas: 'question' '.' 'btn-container';
+    .btn-container {
+      grid-area: btn-container;
+      display: grid;
+      grid-template-columns: 1fr 2em 1fr 2em 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: 'absent . unknown . present';
+      .absent {
+        grid-area: absent;
+      }
+      .present {
+        grid-area: present;
+      }
+      .unknown {
+        grid-area: unknown;
+      }
+      .btn {
+        width: 100%;
       }
     }
   }
