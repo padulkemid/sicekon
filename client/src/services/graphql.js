@@ -1,7 +1,7 @@
 import ApolloClient from 'apollo-boost';
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000/',
+    uri: 'https://sicekon.herokuapp.com/',
     onError: ({ networkError, graphQLErrors }) => {
         console.log('graphQLErrors', graphQLErrors)
         console.log('networkError', networkError)
