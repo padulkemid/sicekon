@@ -274,7 +274,8 @@ export default function () {
                 }
                 break;
             case 'agegender':
-                answerFun.submit(getBotProps());
+                if (values.age && values.sex)
+                    answerFun.submit(getBotProps());
                 break;
             case 'diagnosis':
                 if (val === 'close') {
@@ -363,7 +364,9 @@ export default function () {
                                                                 {userData && userData.userData &&
                                                                     msg.isUser ?
                                                                     <p>{userData.userData.username[0].toUpperCase()}</p> :
-                                                                    <img src={require('../assets/doctor.png')} />
+                                                                    msg.isUser ?
+                                                                        <p>?</p> :
+                                                                        <img src={require('../assets/doctor.png')} />
                                                                 }
                                                             </div>
                                                         }
