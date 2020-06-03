@@ -5,13 +5,16 @@ import { typeDefs, resolvers } from './utils';
 const startServer = async () => {
   const server = new ApolloServer({ typeDefs, resolvers });
 
-  await mongoose.connect('mongodb://localhost:27017/sicekon', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  });
+  await mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost:27017/sicekon',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }
+  );
 
-  server.listen().then(({ url }) => {
+  server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
     console.log(`you should go here ! ${url}`);
   });
 };
