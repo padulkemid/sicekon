@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config ./build/index.js",
+    "start": "npm run build && node -r dotenv/config ./build/index.js",
     "dev": "nodemon --exec babel-node -r dotenv/config src/index.js",
     "test": "jest --coverage --runInBand --detectOpenHandles --forceExit",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
-    "build": "npm run clean && npm run build-babel",
-    "heroku-postbuild": "npm run build"
+    "build": "npm run clean && npm run build-babel"
   },
   "directories": {
     "test": "src/tests"
