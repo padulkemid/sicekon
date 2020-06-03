@@ -43,6 +43,7 @@
     }
   },
   "dependencies": {
+    "@babel/preset-env": "^7.10.2",
     "apollo-server": "^2.14.0",
     "bcrypt": "^4.0.1",
     "core-js": "^3.6.5",
@@ -59,7 +60,6 @@
     "@babel/node": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/polyfill": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
     "apollo-server-testing": "^2.14.1",
     "babel-jest": "^26.0.1",
     "eslint": "^7.1.0",
