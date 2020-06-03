@@ -7,7 +7,7 @@ export default function ({ setIsComplete, values, setValues, addSymptom, setInfo
     useEffect(() => {
         if (values.symptoms && values.symptoms.length > 0) {
             setIsComplete(true);
-            setInfoText('Add more symptoms for better accuracy!');
+            setInfoText('For accurate results, add as many symptoms as possible.');
         }
         else {
             setIsComplete(false);

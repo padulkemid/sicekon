@@ -106,8 +106,9 @@ export default function ({ diagnosis, triage }) {
                                     return (<Chip key={idx} label={cat} color="primary" className="chip" />)
                                 })}
                             </div>
-                            <p className="search">Search on
-                            <a href={`https://www.mayoclinic.org/search/search-results?q=${data.checkCondition.name}`}
+                            <p className="search">
+                                Search on <a
+                                    href={`https://www.mayoclinic.org/search/search-results?q=${data.checkCondition.name}`}
                                     target="_blank"
                                     rel="noopener noreferrer" >
                                     Mayo Clinic
@@ -138,10 +139,11 @@ export default function ({ diagnosis, triage }) {
                 <div className="desc">
                     <p className="hint">We recommend: <p className="name">{triage.triage_level ? triage.triage_level : `----`}</p></p>
                     <hr></hr>
-                    <p className="hint">Consult with a doctor online at
-                    <a href={`https://www.halodoc.com/tanya-dokter`}
+                    <p className="hint">
+                        Consult with a doctor online at <a
+                            href={`https://www.halodoc.com/tanya-dokter`}
                             target="_blank"
-                            rel="noopener noreferrer" >>
+                            rel="noopener noreferrer" >
                             halodoc
                         </a>
                     </p>

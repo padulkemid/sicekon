@@ -26,7 +26,7 @@ export default function ({ setIsComplete, values, addSymptom, setDiagnosis, setI
             setQuestion(result.data.diagnoseSymptoms.question);
             setIsLoading(false);
             if (questionsAnswered > 0) {
-                setInfoText('For accurate results, answer as many as you can!');
+                setInfoText('For accurate results, answer as many questions as you can.');
                 setIsComplete(true);
             }
             setDiagnosis(result.data.diagnoseSymptoms)
