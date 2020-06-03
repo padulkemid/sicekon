@@ -1,16 +1,17 @@
+<div align="center">
+  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717318623617744906/heartbeatlogo.png" alt="sicekon_logo">
+</div>
+
 <h1 align="center">👨🏼‍⚕️ Si Cekon Server ⭐️</h1>
 
-## Temporary Queries ( Mutation and Query )
+## Queries ( Mutation and Query ) 🍽
 
-`tldr` , please read
+### Setups 🍥
 
   - Please do `npm install` after clone
   - To run do `npm run start` and to test do `npm run test`
-  - Currently tests is only for truthy data yet, error tests is on the way
   - To run test properly, edit `./setupTests_template.js` to be the same as
     your `.env`, and **DON'T FORGET TO CHANGE IT INTO** `setupTests.js`
-  - All results is not filtered (full data from api, but extras is removed [cuz
-      its meh 🙃])
   - Symptom diagnosis should be mutated after every iteriation with interview
     questions ~~until _should_stop: true_ ( for the best result, and maybe more accurate )~~
 

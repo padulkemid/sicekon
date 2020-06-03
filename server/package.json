@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -r dotenv/config src/index.js",
-    "test": "jest --coverage --runInBand --detectOpenHandles --forceExit"
+    "start": "npm run build && node -r dotenv/config ./build/index.js",
+    "dev": "nodemon --exec babel-node -r dotenv/config src/index.js",
+    "test": "jest --coverage --runInBand --detectOpenHandles --forceExit",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
+    "serve": "node -r dotenv/config ./build/index.js"
   },
   "directories": {
     "test": "src/tests"
@@ -38,8 +43,10 @@
     }
   },
   "dependencies": {
+    "@babel/preset-env": "^7.10.2",
     "apollo-server": "^2.14.0",
     "bcrypt": "^4.0.1",
+    "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "graphql": "^15.0.0",
     "ioredis": "^4.17.1",
@@ -53,7 +60,6 @@
     "@babel/node": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/polyfill": "^7.10.1",
-    "@babel/preset-env": "^7.10.1",
     "apollo-server-testing": "^2.14.1",
     "babel-jest": "^26.0.1",
     "eslint": "^7.1.0",
