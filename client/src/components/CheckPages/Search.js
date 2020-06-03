@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useCallback, useConstant } from 'react';
+import React, { useState, useEffect, } from 'react';
 import debounce from "lodash.debounce";
 import Autosuggest from 'react-autosuggest';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from '@apollo/react-hooks';
 import { SEARCH_OBSERVATIONS } from '../../schema';
 import '../../styles/Search.scss';
@@ -36,7 +35,6 @@ export default function ({ values, addSymptom }) {
                 data.searchObservations[i].name = data.searchObservations[i].label;
                 searchSymptoms.push(data.searchObservations[i]);
             }
-        console.log(JSON.stringify(searchSymptoms));
         setSearchSymptoms(searchSymptoms);
     }, [data])
 

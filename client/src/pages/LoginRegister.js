@@ -51,7 +51,7 @@ export default function ({ setShowLoginRegister, showLoginRegister }) {
     const [setUserData] = useMutation(SET_USER_DATA);
     const SetUserData = async (userData) => {
         try {
-            const result = await setUserData({
+            await setUserData({
                 variables: {
                     userData
                 }
@@ -75,7 +75,7 @@ export default function ({ setShowLoginRegister, showLoginRegister }) {
     };
 
     const handleClick = (prop) => {
-        const { email, password, sex: sex, age, username } = values;
+        const { email, password, sex, age, username } = values;
         switch (prop) {
             case 'register':
                 registerUser({ email, password, sex, age: Number(age), username });

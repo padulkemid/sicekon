@@ -12,13 +12,9 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
     }, [values.symptoms, setIsComplete])
 
     const handleDelete = (prop, id) => {
-        let commonSymptoms = [...values.commonSymptoms]
-        if (values['commonSymptoms'].find(symptom => symptom.id === id))
-            commonSymptoms = [...values.commonSymptoms, values['commonSymptoms'].find(symptom => symptom.id === id).chosen = false];
         setValues({
             ...values,
-            symptoms: values.symptoms.filter((symptom) => { return symptom.id !== id; }),
-            commonSymptoms
+            symptoms: values.symptoms.filter((symptom) => { return symptom.id !== id; })
         });
     };
 
@@ -26,16 +22,11 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
         switch (prop) {
             case 'commonSymptoms':
                 let symptoms = [];
-                let commonSymptoms = [];
                 if (values.symptoms) {
                     symptoms = [...values.symptoms];
                 }
-                if (values.commonSymptoms) {
-                    commonSymptoms = [...values.commonSymptoms];
-                }
-                symptoms.push(commonSymptoms.find(symptom => symptom.id === id));
-                commonSymptoms.push(commonSymptoms.find(symptom => symptom.id === id).chosen = true);
-                const newValues = { ...values, symptoms, commonSymptoms }
+                symptoms.push(values.commonSymptoms.find(symptom => symptom.id === id));
+                const newValues = { ...values, symptoms }
                 setValues(newValues);
                 break;
             default:
@@ -50,14 +41,14 @@ export default function ({ setIsComplete, values, setValues, addSymptom }) {
                 <Search values={values} addSymptom={addSymptom} />
                 <p className="common-symp">Or choose common symptoms</p>
                 <div className="symptoms">
-                    {values.commonSymptoms && values.commonSymptoms.map((symptom, idx) => {
+                    {values.commonSymptoms && values.commonSymptoms.map((commSymp, idx) => {
                         return (<div key={idx}>
                             {
-                                symptom && symptom.id ?
-                                    symptom.chosen ?
-                                        <Chip label={symptom.name} onDelete={() => { handleDelete('commonSymptoms', symptom.id) }} className="chip" />
+                                commSymp && commSymp.id ?
+                                    values.symptoms.findIndex(sym => sym.id === commSymp.id) < 0 ?
+                                        <Chip label={commSymp.name} onClick={() => { handleClick('commonSymptoms', commSymp.id) }} color="primary" variant="outlined" className="chip" />
                                         :
-                                        <Chip label={symptom.name} onClick={() => { handleClick('commonSymptoms', symptom.id) }} color="primary" variant="outlined" className="chip" />
+                                        <Chip label={commSymp.name} onDelete={() => { handleDelete('commonSymptoms', commSymp.id) }} className="chip" />
                                     : <></>
                             }
                         </div>)

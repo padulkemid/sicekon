@@ -1,5 +1,4 @@
 import ApolloClient from 'apollo-boost';
-import { GET_USER_DATA } from '../schema';
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/',
@@ -19,29 +18,10 @@ const client = new ApolloClient({
                         }
                     })
                 },
-                setSymptoms: (_, variables, client) => {
-                    const { symptoms } = variables;
-                    client.cache.writeData({
-                        data: {
-                            symptoms
-                        }
-                    })
-                },
-                // removeFavorites: (_, variables, client) => {
-                //     const { id } = variables;
-                //     let { favorites } = client.cache.readQuery({ query: GET_FAVORITES });
-                //     favorites = favorites.filter(el => el.id !== id);
-                //     client.cache.writeData({
-                //         data: {
-                //             favorites
-                //         }
-                //     })
-                // }
             }
         },
         defaults: {
             userData: {},
-            symptoms: []
         }
     }
 });

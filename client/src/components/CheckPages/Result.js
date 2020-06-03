@@ -6,12 +6,11 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 
-export default function ({ setIsComplete, values, setValues, diagnosis, triage }) {
+export default function ({ diagnosis, triage }) {
 
     const [conditions, setConditions] = useState([]);
 
@@ -75,7 +74,7 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                 for (let i in newConditions) {
                     if (Number(i) !== idx)
                         newConditions[i].selected = false;
-                    else if (newConditions[i].selected == true)
+                    else if (newConditions[i].selected === true)
                         newConditions[i].selected = false;
                     else
                         newConditions[i].selected = true;
@@ -85,6 +84,8 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                 for (let i in newConditions) {
                     newConditions[i].selected = false;
                 }
+                break;
+            default:
                 break;
         }
         setConditions(newConditions);
@@ -105,7 +106,13 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                                     return (<Chip key={idx} label={cat} color="primary" className="chip" />)
                                 })}
                             </div>
-                            <p className="search">Search on <a href={`https://www.mayoclinic.org/search/search-results?q=${data.checkCondition.name}`} target="_blank">Mayo Clinic</a></p>
+                            <p className="search">Search on
+                            <a href={`https://www.mayoclinic.org/search/search-results?q=${data.checkCondition.name}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer" >
+                                    Mayo Clinic
+                                </a>
+                            </p>
                             <div className="table-container" >
                                 <TableContainer component={Paper} className="table">
                                     <Table aria-label="simple table">
@@ -131,7 +138,13 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                 <div className="desc">
                     <p className="hint">We recommend: <p className="name">{triage.triage_level ? triage.triage_level : `----`}</p></p>
                     <hr></hr>
-                    <p className="hint">Consult with a doctor online at <a href={`https://www.halodoc.com/tanya-dokter`} target="_blank">halodoc</a></p>
+                    <p className="hint">Consult with a doctor online at
+                    <a href={`https://www.halodoc.com/tanya-dokter`}
+                            target="_blank"
+                            rel="noopener noreferrer" >>
+                            halodoc
+                        </a>
+                    </p>
                     <p className="hint">Find the nearest <Link to="/map">hospital</Link></p>
                     <br></br>
                     <p className="search">Click on the left hand side for more information</p>
@@ -139,13 +152,13 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
             }
             {loading &&
                 <div className="desc loading">
-                    <div class="lds-heart"><div></div></div>
+                    <div className="lds-heart"><div></div></div>
                 </div>
             }
             <div className="list">
                 {seriousConditions && seriousConditions.map((condition, idx) => {
                     return (
-                        <a key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={() => { handleClick('seriousCondition', idx) }} >
+                        <div key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={() => { handleClick('seriousCondition', idx) }} >
                             <div className="alert" >
                                 <img alt="alert" src={require('../../assets/alert.svg')} />
                             </div>
@@ -153,12 +166,12 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                             {condition.common_name !== condition.name &&
                                 <p className="desc">{condition.name}</p>
                             }
-                        </a>
+                        </div>
                     )
                 })}
                 {conditions && conditions.map((condition, idx) => {
                     return (
-                        <a key={condition.id} className={`item ${condition.selected ? 'selected' : ''}`} onClick={() => { handleClick('condition', idx) }} >
+                        <div key={condition.id} className={`item ${condition.selected ? 'selected' : ''}`} onClick={() => { handleClick('condition', idx) }} >
                             {/* <p>{JSON.stringify(conditions)}</p> */}
                             <p className="title">{condition.common_name}</p>
                             {idx < 3 &&
@@ -167,7 +180,7 @@ export default function ({ setIsComplete, values, setValues, diagnosis, triage }
                             {condition.common_name !== condition.name &&
                                 <p className="desc">{condition.name}</p>
                             }
-                        </a>
+                        </div>
                     )
                 })}
             </div>

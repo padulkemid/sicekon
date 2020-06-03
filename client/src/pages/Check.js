@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { GenderAge, Symptom, Question, Result } from '../components/CheckPages';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { GET_USER_DATA, CHECK_TRIAGE } from "../schema";
@@ -46,17 +45,21 @@ function getStepContent(stepIndex, { setIsComplete, userData, values, setValues,
   }
 }
 
+const defaultValues = {
+  commonSymptoms: [
+    {
+      "id": "s_331",
+      "name": "nose congestion",
+      chosen: false
+    },
+  ],
+  gender: '',
+  symptoms: []
+}
+
 export default function () {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    commonSymptoms: [
-      {
-        "id": "s_331",
-        "name": "nose congestion",
-      },
-    ],
-    gender: ''
-  });
+  const [values, setValues] = useState({ ...defaultValues });
   const [activeStep, setActiveStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [diagnosis, setDiagnosis] = useState({});
@@ -122,6 +125,7 @@ export default function () {
 
   const handleReset = () => {
     setActiveStep(0);
+    setValues({ ...defaultValues });
   };
 
   const addSymptom = item => {

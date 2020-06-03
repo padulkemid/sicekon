@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useMutation } from '@apollo/react-hooks';
-import { DIAGNOSE_SYMPTOMS, CHECK_TRIAGE } from "../../schema";
+import { DIAGNOSE_SYMPTOMS } from "../../schema";
 
-export default function ({ setIsComplete, values, setValues, addSymptom, setDiagnosis }) {
+export default function ({ setIsComplete, values, addSymptom, setDiagnosis }) {
 
     const [question, setQuestion] = useState(0);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         getQuestion();
-        if (questionsAnswered > 2) {
-        }
-        else {
-            setIsComplete(false);
-        }
     }, [questionsAnswered])
 
     const [Diagnose_Symptoms] = useMutation(DIAGNOSE_SYMPTOMS);
@@ -83,7 +78,7 @@ export default function ({ setIsComplete, values, setValues, addSymptom, setDiag
         <div className="page-content questions">
             {isLoading ?
                 <div className="loading">
-                    <div class="lds-heart"><div></div></div>
+                    <div className="lds-heart"><div></div></div>
                 </div> :
                 <p className="question">{question.text}</p>
             }

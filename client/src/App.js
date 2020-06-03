@@ -23,7 +23,7 @@ export default function App() {
   const [setUserData] = useMutation(SET_USER_DATA);
   const SetUserData = async (userData) => {
     try {
-      const result = await setUserData({
+      await setUserData({
         variables: {
           userData
         }
