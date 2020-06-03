@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './styles/Loading.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { Home, About, Check, Map, LoginRegister, UserMenu, Chatbot } from './pages';
+import { Home, Check, Map, LoginRegister, UserMenu, Chatbot } from './pages';
 import { MenuBar } from './components';
 import { AnimatePresence } from 'framer-motion';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/react-hooks';
-import { SET_USER_DATA } from "./schema";
+import { SET_USER_DATA } from './schema';
 
 export default function App() {
   const location = useLocation();
@@ -26,20 +26,20 @@ export default function App() {
     try {
       await setUserData({
         variables: {
-          userData
-        }
+          userData,
+        },
       });
       setShowLoginRegister(null);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (localStorage.getItem('userData')) {
       SetUserData(JSON.parse(localStorage.getItem('userData')));
     }
-  }, [])
+  }, []);
 
   return (
     <div className="App">
@@ -48,14 +48,12 @@ export default function App() {
           showLoginRegister={showLoginRegister}
           setShowLoginRegister={setShowLoginRegister}
           showUser={showUser}
-          setShowUser={setShowUser} />
+          setShowUser={setShowUser}
+        />
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/">
               <Home />
-            </Route>
-            <Route path="/about">
-              <About />
             </Route>
             <Route path="/check">
               <Check />
@@ -74,12 +72,7 @@ export default function App() {
             setShowLoginRegister={setShowLoginRegister}
           />
         )}
-        {showUser && (
-          <UserMenu
-            showUser={showUser}
-            setShowUser={setShowUser}
-          />
-        )}
+        {showUser && <UserMenu showUser={showUser} setShowUser={setShowUser} />}
       </MuiThemeProvider>
     </div>
   );
