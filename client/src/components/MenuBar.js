@@ -5,7 +5,7 @@ import '../styles/MenuBar.scss'
 import { GET_USER_DATA } from "../schema";
 import Avatar from '@material-ui/core/Avatar';
 
-export default ({ setShowLoginRegister }) => {
+export default ({ showLoginRegister, setShowLoginRegister, showUser, setShowUser }) => {
 
     const { data } = useQuery(GET_USER_DATA);
     useEffect(() => {
@@ -35,10 +35,10 @@ export default ({ setShowLoginRegister }) => {
             <div className="right bar">
                 {(!data || !data.userData) &&
                     <>
-                        <div className="btn menubtn" onClick={() => { setShowLoginRegister('login') }}>
+                        <div className="btn menubtn" onClick={() => { showLoginRegister === 'login' ? setShowLoginRegister(null) : setShowLoginRegister('login') }}>
                             <p className="menutext">Login</p>
                         </div>
-                        <div className="btn menubtn" onClick={() => { setShowLoginRegister('register') }}>
+                        <div className="btn menubtn" onClick={() => { showLoginRegister === 'register' ? setShowLoginRegister(null) : setShowLoginRegister('register') }}>
                             <p className="menutext">Register</p>
                         </div>
                     </>
@@ -46,7 +46,7 @@ export default ({ setShowLoginRegister }) => {
 
                 {data && data.userData &&
                     <>
-                        <Avatar className="avatar" title={data.userData.username} >{data.userData.username[0].toUpperCase()}</Avatar>
+                        <Avatar className="avatar" title={data.userData.username} onClick={() => { showUser ? setShowUser(null) : setShowUser('user') }}>{data.userData.username[0].toUpperCase()}</Avatar>
                     </>
                 }
             </div>

@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { useMutation } from '@apollo/react-hooks';
 import { DIAGNOSE_SYMPTOMS } from "../../schema";
 
-export default function ({ setIsComplete, values, addSymptom, setDiagnosis }) {
+export default function ({ setIsComplete, values, addSymptom, setDiagnosis, setInfoText }) {
 
     const [question, setQuestion] = useState(0);
     const [questionsAnswered, setQuestionsAnswered] = useState(0);
@@ -25,7 +25,8 @@ export default function ({ setIsComplete, values, addSymptom, setDiagnosis }) {
             console.log(result)
             setQuestion(result.data.diagnoseSymptoms.question);
             setIsLoading(false);
-            if (questionsAnswered > 2) {
+            if (questionsAnswered > 0) {
+                setInfoText('For accurate results, answer as many as you can!');
                 setIsComplete(true);
             }
             setDiagnosis(result.data.diagnoseSymptoms)

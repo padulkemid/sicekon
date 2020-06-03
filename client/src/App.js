@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './styles/Loading.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { Home, Info, Check, Map, LoginRegister } from './pages';
+import { Home, Info, Check, Map, LoginRegister, UserMenu } from './pages';
 import { MenuBar } from './components';
 import { AnimatePresence } from 'framer-motion';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -12,6 +12,7 @@ import { SET_USER_DATA } from "./schema";
 export default function App() {
   const location = useLocation();
   const [showLoginRegister, setShowLoginRegister] = useState(null);
+  const [showUser, setShowUser] = useState(null);
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -43,7 +44,11 @@ export default function App() {
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
-        <MenuBar setShowLoginRegister={setShowLoginRegister} />
+        <MenuBar
+          showLoginRegister={showLoginRegister}
+          setShowLoginRegister={setShowLoginRegister}
+          showUser={showUser}
+          setShowUser={setShowUser} />
         <AnimatePresence exitBeforeEnter>
           <Switch location={location} key={location.pathname}>
             <Route exact path="/">
@@ -64,6 +69,12 @@ export default function App() {
           <LoginRegister
             showLoginRegister={showLoginRegister}
             setShowLoginRegister={setShowLoginRegister}
+          />
+        )}
+        {showUser && (
+          <UserMenu
+            showUser={showUser}
+            setShowUser={setShowUser}
           />
         )}
       </MuiThemeProvider>

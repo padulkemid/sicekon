@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import Chip from '@material-ui/core/Chip';
 import Search from './Search';
 
-export default function ({ setIsComplete, values, setValues, addSymptom }) {
+export default function ({ setIsComplete, values, setValues, addSymptom, setInfoText }) {
 
     useEffect(() => {
-        if (values.symptoms && values.symptoms.length > 0)
+        if (values.symptoms && values.symptoms.length > 0) {
             setIsComplete(true);
-        else
+            setInfoText('Add more symptoms for better accuracy!');
+        }
+        else {
             setIsComplete(false);
+        }
     }, [values.symptoms, setIsComplete])
 
     const handleDelete = (prop, id) => {

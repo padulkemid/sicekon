@@ -1,4 +1,4 @@
-.content {
+.content.check {
   background: #f2f3f4;
   padding: 2em 4em;
   display: grid;
@@ -38,12 +38,19 @@
       grid-template-areas:
         'step-content step-content'
         '. .'
-        '. btn-group';
+        'info btn-group';
       .step-content {
         grid-area: step-content;
       }
       .btn-group {
         grid-area: btn-group;
+      }
+      .info {
+        grid-area: info;
+        color: #e34b4b;
+        .info-text {
+          margin: 0;
+        }
       }
     }
   }

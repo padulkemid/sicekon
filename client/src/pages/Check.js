@@ -28,17 +28,15 @@ function getSteps() {
   return ['Info', 'Symptoms', 'Questions', 'Diagnosis'];
 }
 
-function getStepContent(stepIndex, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage }) {
+function getStepContent(stepIndex, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage, setInfoText }) {
   switch (stepIndex) {
     case 0:
-      // return (<Result setIsComplete={setIsComplete} values={values} setValues={setValues} />);
       return (<GenderAge setIsComplete={setIsComplete} userData={userData} values={values} setValues={setValues} />);
     case 1:
-      return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} />);
+      return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} setInfoText={setInfoText} />);
     case 2:
-      return (<Question setIsComplete={setIsComplete} values={values} setValues={setValues} addSymptom={addSymptom} setDiagnosis={setDiagnosis} />);
+      return (<Question setIsComplete={setIsComplete} values={values} addSymptom={addSymptom} setDiagnosis={setDiagnosis} setInfoText={setInfoText} />);
     case 3:
-      // return (<Symptom setIsComplete={setIsComplete} values={values} setValues={setValues} />);
       return (<Result diagnosis={diagnosis} triage={triage} />);
     default:
       return 'Unknown stepIndex';
@@ -49,8 +47,7 @@ const defaultValues = {
   commonSymptoms: [
     {
       "id": "s_331",
-      "name": "nose congestion",
-      chosen: false
+      "name": "nose congestion"
     },
   ],
   gender: '',
@@ -64,6 +61,7 @@ export default function () {
   const [isComplete, setIsComplete] = useState(false);
   const [diagnosis, setDiagnosis] = useState({});
   const [triage, setTriage] = useState({});
+  const [infoText, setInfoText] = useState('');
   const steps = getSteps();
 
   const [Check_Triage] = useMutation(CHECK_TRIAGE);
@@ -115,15 +113,17 @@ export default function () {
         }
       });
     }
-
+    setInfoText('');
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
+    setInfoText('');
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
+    setInfoText('');
     setActiveStep(0);
     setValues({ ...defaultValues });
   };
@@ -146,7 +146,7 @@ export default function () {
   }
 
   return (
-    <div className="content">
+    <div className="content check">
       <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='check-container'>
         <Stepper activeStep={activeStep} alternativeLabel className="stepper">
           {steps.map((label) => (
@@ -157,12 +157,22 @@ export default function () {
         </Stepper>
         <div className="content">
           <div className="step-content">
-            {getStepContent(activeStep, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage })}
+            {getStepContent(activeStep, { setIsComplete, userData, values, setValues, addSymptom, diagnosis, setDiagnosis, triage, setInfoText })}
+          </div>
+          <div className="info">
+            <p className="info-text">{infoText}</p>
           </div>
           <div className="btn-group">
             {activeStep === steps.length - 1 ?
               (
                 <>
+                  <Button
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    className={classes.backButton}
+                  >
+                    Back
+                  </Button>
                   <Button onClick={handleReset}>Reset</Button>
                 </>
               ) : (
