@@ -95,7 +95,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
                         newConditions[i].selected = true;
                 }
                 break;
-            case 'seriousCondition':
+            case 'unfocus':
                 for (let i in newConditions) {
                     newConditions[i].selected = false;
                 }
@@ -111,7 +111,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
 
     return (
         <div className="page-content diagnosis"
-            onClick={(e) => { e.stopPropagation() }}
+            onClick={handleClick('unfocus')}
         >
             {selectedId ?
                 <>
@@ -156,7 +156,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
                         </div>
                     }
                 </> :
-                <div className="desc">
+                <div className="desc" onClick={(e) => { e.stopPropagation() }}>
                     <p className="hint">Triage Level
                         <p className="triage">
                             {triage.triage_level ? wordFormatter(triage.triage_level) : `----`}
@@ -220,7 +220,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
             <div className="list">
                 {seriousConditions && seriousConditions.map((condition, idx) => {
                     return (
-                        <div key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={handleClick('seriousCondition', idx)} >
+                        <div key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={handleClick('unfocus', idx)} >
                             <div className="alert" >
                                 <img alt="alert" src={require('../../assets/alert.svg')} />
                             </div>

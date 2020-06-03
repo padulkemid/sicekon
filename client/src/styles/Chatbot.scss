@@ -33,9 +33,12 @@
       padding: 2em;
       width: 100%;
       max-width: 60em;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: 'diagnosis';
       .diagnosis {
-        // max-width: 55em;
-        // width: 100%;
+        grid-area: diagnosis;
       }
     }
   }
@@ -310,6 +313,9 @@
             img {
               width: 3em;
               height: 3em;
+            }
+            p {
+              font-size: 1.6em;
             }
             &.user {
               background: #e34b4b;
