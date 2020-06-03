@@ -2,7 +2,12 @@ import mongoose from 'mongoose';
 import { ApolloServer } from 'apollo-server';
 import { createTestClient } from 'apollo-server-testing';
 import { typeDefs, resolvers } from '../utils';
-import { checkInfo, checkCondition, getHistory } from './query';
+import {
+  checkInfo,
+  checkCondition,
+  searchObservations,
+  getHistory,
+} from './query';
 import {
   diagnoseSymptoms,
   checkTriage,
@@ -131,6 +136,31 @@ describe('GraphQL and Mongoose Test', () => {
             hint: expect.any(String),
           })
         );
+      });
+
+      it('should search all observations of symptoms within given phrase and data', async () => {
+        const params = {
+          phrase: 'hard to breath',
+          sex: 'male',
+          age: 20,
+          max_results: 10,
+          type: 'symptom',
+        };
+        const res = await query({
+          query: searchObservations,
+          variables: {
+            params,
+          },
+        });
+
+        const { searchObservations: symptoms } = res.data;
+
+        expect(res.errors).toBeUndefined();
+        expect(res.data).not.toBeUndefined();
+        expect(res.data).toBeDefined();
+        expect(symptoms).toBeDefined();
+        expect(symptoms).toContainObject({ id: 's_2203' });
+        expect(symptoms).toContainObject({ label: expect.any(String) });
       });
     });
 

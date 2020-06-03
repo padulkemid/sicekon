@@ -6,6 +6,7 @@ import {
   diagnoseSymptoms,
   chatFinalResponse,
   checkTriage,
+  searchObservations,
 } from '../entities/symptomsResolver';
 
 const resolvers = {
@@ -13,6 +14,7 @@ const resolvers = {
     checkInfo,
     checkCondition,
     getHistory,
+    searchObservations,
   },
   Mutation: {
     diagnoseSymptoms,

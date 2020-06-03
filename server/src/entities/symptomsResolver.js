@@ -55,7 +55,24 @@ const checkCondition = async (_, { id }) => {
   return struct;
 };
 
-export { checkInfo, checkCondition };
+const searchObservations = async (_, { params }) => {
+  const { phrase, sex, age, max_results, type } = params;
+  const observeParams = await fetch(
+    `${baseUrl}/search?phrase=${phrase}&sex=${sex}&age=${age}&max_results=${max_results}&type=${type}`,
+    {
+      method: 'get',
+      headers: {
+        'App-Id': process.env.APP_ID,
+        'App-key': process.env.APP_KEY,
+      },
+    }
+  );
+  const response = await observeParams.json();
+
+  return response;
+};
+
+export { checkInfo, checkCondition, searchObservations };
 
 // Mutations
 const diagnoseSymptoms = async (_, { diagnosis }) => {
@@ -120,6 +137,5 @@ const checkTriage = async (_, { diagnosis }) => {
 
   return struct;
 };
-
 
 export { diagnoseSymptoms, chatFinalResponse, checkTriage };

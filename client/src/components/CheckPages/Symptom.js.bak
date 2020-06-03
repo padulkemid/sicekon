@@ -1,0 +1,220 @@
+import React, { useState, useEffect } from 'react';
+import { debounce } from "throttle-debounce";
+import { TextInput } from '../';
+import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import { useQuery } from '@apollo/react-hooks';
+import { SEARCH_OBSERVATIONS } from '../../schema';
+
+export default function ({ setIsComplete, values: pValues, setValues: pSetValues }) {
+
+    const [values, setValues] = useState({
+        age: null,
+        sex: null,
+        symptoms: [
+            {
+                "id": "s_1436",
+                "label": "pain around nose"
+            },
+            {
+                "id": "s_531",
+                "label": "Frequent runny nose, cough"
+            },
+            {
+                "id": "s_230",
+                "label": "Rash on face covering only the cheeks and the nose"
+            },
+            {
+                "id": "s_524",
+                "label": "Polyps in nose"
+            },
+            {
+                "id": "s_1232",
+                "label": "Double vision while looking down and toward the nose"
+            },
+            {
+                "id": "s_1240",
+                "label": "difficulty looking at nose"
+            },
+            {
+                "id": "s_1605",
+                "label": "Nose pain"
+            },
+            {
+                "id": "s_2017",
+                "label": "Nosebleeds, recurrent"
+            },
+            {
+                "id": "s_2016",
+                "label": "Nosebleed, single episode"
+            },
+            {
+                "id": "s_1996",
+                "label": "nose swelling"
+            },
+            {
+                "id": "s_1100",
+                "label": "Transverse furrow on the nose"
+            },
+            {
+                "id": "s_1548",
+                "label": "Pseudomembrane in throat or nose"
+            }
+        ],
+        commonSymptoms: [
+            {
+                "id": "s_331",
+                "label": "nose congestion",
+            },
+            {
+                "id": "s_107",
+                "label": "Runny nose"
+            },
+            {
+                "id": "s_1429",
+                "label": "Nosebleeds"
+            },
+            {
+                "id": "s_252",
+                "label": "nose tingly"
+            },
+        ],
+        search: '',
+        searchSymptoms: [],
+        searchDebounced: ''
+    });
+
+    const [searchStyle, setSearchStyle] = useState({
+        height: "44px",
+        border: "1px solid #c4c4c4",
+        borderRadius: "4px",
+        backgroundColor: "white",
+        boxShadow: "none",
+        hoverBackgroundColor: "#eee",
+        color: "rgba(0, 0, 0, 0.87);",
+        fontSize: "16px",
+        fontFamily: "Arial",
+        iconColor: "grey",
+        lineColor: "rgb(232, 234, 237)",
+        placeholderColor: "grey",
+    });
+
+    const { loading, error, data } = useQuery(SEARCH_OBSERVATIONS, {
+        variables: {
+            params: {
+                "phrase": values.searchDebounced,
+                "sex": pValues.sex,
+                "age": Number(pValues.age),
+                "max_results": 12,
+                "type": "symptom"
+            }
+        }
+    });
+
+    useEffect(() => {
+        if (values.symptoms && values.symptoms.length > 0)
+            setIsComplete(true);
+        else
+            setIsComplete(false);
+    }, [values.symptoms, setIsComplete])
+
+    useEffect(() => {
+        const searchSymptoms = [];
+        if (data)
+            for (let i in data.searchObservations) {
+                data.searchObservations[i].name = data.searchObservations[i].label;
+                searchSymptoms.push(data.searchObservations[i]);
+            }
+        setValues({ ...values, searchSymptoms })
+    }, [data])
+
+    const handleDelete = (prop, id) => {
+        let commonSymptoms = [...values.commonSymptoms]
+        if (values['commonSymptoms'].find(symptom => symptom.id === id))
+            commonSymptoms = [...values.commonSymptoms, values['commonSymptoms'].find(symptom => symptom.id === id).chosen = false];
+        setValues({
+            ...values,
+            symptoms: values.symptoms.filter((symptom) => { return symptom.id !== id; }),
+            commonSymptoms
+        });
+    };
+
+    const handleClick = (prop, id) => {
+        switch (prop) {
+            case 'commonSymptoms':
+                const newValues = {
+                    ...values,
+                    symptoms: [...values['symptoms'], values['commonSymptoms'].find(symptom => symptom.id === id)],
+                    commonSymptoms: [...values['commonSymptoms'], values['commonSymptoms'].find(symptom => symptom.id === id).chosen = true]
+                }
+                setValues(newValues);
+                console.log(newValues);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleOnSearch = (string, cached) => {
+        console.log(values);
+        setValues({ ...values, searchDebounced: string });
+    }
+
+    const handleOnSelect = item => {
+        const symptoms = [...values.symptoms];
+        console.log(item, symptoms);
+        // if (!symptoms.findIndex(sym => { return sym.id === item.id }))
+        symptoms.push(item);
+        const newValues = { ...values, symptoms }
+        setValues(newValues)
+        console.log(item, symptoms);
+    }
+
+    const handleOnFocus = () => {
+        console.log("Focused");
+        // setSearchStyle({ ...searchStyle, border: "2px solid #e34b4b" })
+    }
+
+    return (
+        <div className="page-content symptom">
+            <div className="picker">
+                <p>What are your symptoms?</p>
+                <ReactSearchAutocomplete
+                    items={values.searchSymptoms}
+                    onSearch={handleOnSearch}
+                    onSelect={handleOnSelect}
+                    onFocus={handleOnFocus}
+                    inputDebounce={500}
+                    onChange={() => { console.log('object'); }}
+                    styling={searchStyle}
+                />
+                <p>Or choose common symptoms</p>
+                <div className="symptoms">
+                    {values.commonSymptoms && values.commonSymptoms.map((symptom, idx) => {
+                        return (<div key={idx}>
+                            {
+                                symptom && symptom.id ?
+                                    symptom.chosen ?
+                                        <Chip label={symptom.label} onDelete={() => { handleDelete('commonSymptoms', symptom.id) }} className="chip" />
+                                        :
+                                        <Chip label={symptom.label} onClick={() => { handleClick('commonSymptoms', symptom.id) }} color="primary" variant="outlined" className="chip" />
+                                    : <></>
+                            }
+                        </div>)
+                    })}
+                </div>
+            </div>
+            <div className="list">
+                <p>Symptoms</p>
+                <div className="symptoms">
+                    {values.symptoms && values.symptoms.map((symptom, idx) => {
+                        return (<Chip key={symptom.id} label={symptom.label} onDelete={() => { handleDelete('symptoms', symptom.id) }} color="primary" className="chip" />)
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+}
