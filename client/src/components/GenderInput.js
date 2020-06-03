@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 export default function ({ onChange, value }) {
 
     return (
-        <FormControl variant="outlined" className="sex-input input-field">
+        <FormControl variant="outlined" className="sex-input input-field gender">
             <InputLabel id="select-outlined-label">Gender</InputLabel>
             <Select
                 labelId="select-outlined-label"

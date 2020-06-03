@@ -30,7 +30,7 @@ export default ({ showLoginRegister, setShowLoginRegister, showUser, setShowUser
     };
 
     return (
-        <div className="menu-bar">
+        <div className="menu-bar" onClick={() => { if (showUser) setShowUser(null) }}>
             {location &&
                 <div className="left bar">
                     <Link to="/" className="logobtn">

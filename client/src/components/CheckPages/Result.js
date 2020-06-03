@@ -81,7 +81,8 @@ export default function ({ diagnosis, triage, setInfoText }) {
                 return '';
         }
     }
-    const handleClick = (prop, idx) => {
+    const handleClick = (prop, idx) => (e) => {
+        e.stopPropagation();
         const newConditions = [...conditions];
         switch (prop) {
             case 'condition':
@@ -109,7 +110,9 @@ export default function ({ diagnosis, triage, setInfoText }) {
     }
 
     return (
-        <div className="page-content diagnosis">
+        <div className="page-content diagnosis"
+            onClick={(e) => { e.stopPropagation() }}
+        >
             {selectedId ?
                 <>
                     {data && data.checkCondition &&
@@ -202,7 +205,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
                         <div className="seperator">
                             <p>Or</p>
                         </div>
-                        <Button onClick={() => { handleClick('map') }} className="btn map-btn" variant="outlined" color="primary">
+                        <Button onClick={handleClick('map')} className="btn map-btn" variant="outlined" color="primary">
                             <img className="icon" src={require('../../assets/map.svg')} />
                             <p>Find the nearest hospital</p>
                         </Button>
@@ -217,7 +220,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
             <div className="list">
                 {seriousConditions && seriousConditions.map((condition, idx) => {
                     return (
-                        <div key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={() => { handleClick('seriousCondition', idx) }} >
+                        <div key={condition.id} className={`item important ${condition.is_emergency ? 'emergency' : ''}`} onClick={handleClick('seriousCondition', idx)} >
                             <div className="alert" >
                                 <img alt="alert" src={require('../../assets/alert.svg')} />
                             </div>
@@ -230,7 +233,7 @@ export default function ({ diagnosis, triage, setInfoText }) {
                 })}
                 {conditions && conditions.map((condition, idx) => {
                     return (
-                        <div key={condition.id} className={`item ${condition.selected ? 'selected' : ''}`} onClick={() => { handleClick('condition', idx) }} >
+                        <div key={condition.id} className={`item ${condition.selected ? 'selected' : ''}`} onClick={handleClick('condition', idx)} >
                             {/* <p>{JSON.stringify(conditions)}</p> */}
                             <p className="title">{condition.common_name}</p>
                             {idx < 3 &&

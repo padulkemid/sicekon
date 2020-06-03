@@ -114,6 +114,7 @@
       hr {
         border: 0;
         border-top: 1px solid #e8eaed;
+        margin: 2em 0;
       }
       .desc-content {
         display: grid;
@@ -128,7 +129,6 @@
         .top {
           grid-area: top;
           width: 100%;
-          margin-top: 2em;
           margin-bottom: 0;
         }
         .seperator {
