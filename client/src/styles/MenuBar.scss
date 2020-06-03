@@ -43,6 +43,33 @@
       .menutext {
         font-size: 1.2em;
         font-weight: 400;
+        color: black;
+        &:hover {
+          color: #e34b4b;
+        }
+        &.active {
+          color: #e34b4b;
+        }
+      }
+    }
+    .btn.chatbot-btn {
+      width: 100%;
+      padding-left: 0em;
+      span {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: 'icon text';
+        .icon {
+          grid-area: icon;
+          height: auto;
+          width: 1.4em;
+          padding: 0.2em 1em;
+        }
+        p {
+          grid-area: text;
+          text-align: center;
+        }
       }
     }
     .avatar {

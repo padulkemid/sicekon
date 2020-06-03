@@ -5,9 +5,13 @@ import Search from './Search';
 export default function ({ setIsComplete, values, setValues, addSymptom, setInfoText }) {
 
     useEffect(() => {
-        if (values.symptoms && values.symptoms.length > 0) {
+        if (values.symptoms && values.symptoms.length > 5) {
             setIsComplete(true);
-            setInfoText('For accurate results, add as many symptoms as possible.');
+            setInfoText('');
+        }
+        else if (values.symptoms && values.symptoms.length > 0) {
+            setIsComplete(true);
+            setInfoText('For best results, add as many symptoms as possible.');
         }
         else {
             setIsComplete(false);
@@ -45,16 +49,16 @@ export default function ({ setIsComplete, values, setValues, addSymptom, setInfo
                 <p className="common-symp">Or choose common symptoms</p>
                 <div className="symptoms">
                     {values.commonSymptoms && values.commonSymptoms.map((commSymp, idx) => {
-                        return (<div key={idx}>
+                        return (<>
                             {
                                 commSymp && commSymp.id ?
                                     values.symptoms.findIndex(sym => sym.id === commSymp.id) < 0 ?
-                                        <Chip label={commSymp.name} onClick={() => { handleClick('commonSymptoms', commSymp.id) }} color="primary" variant="outlined" className="chip" />
+                                        <Chip key={idx} label={commSymp.name} onClick={() => { handleClick('commonSymptoms', commSymp.id) }} color="primary" variant="outlined" className="chip" />
                                         :
-                                        <Chip label={commSymp.name} onDelete={() => { handleDelete('commonSymptoms', commSymp.id) }} className="chip" />
+                                        <Chip key={idx} label={commSymp.name} onDelete={() => { handleDelete('commonSymptoms', commSymp.id) }} className="chip" />
                                     : <></>
                             }
-                        </div>)
+                        </>)
                     })}
                 </div>
             </div>

@@ -1,0 +1,79 @@
+.home {
+  grid-area: content;
+  background: #f2f3f4;
+  padding: 2em 4em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    '. '
+    ' content '
+    '. ';
+
+  .content {
+    grid-area: content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 30em;
+    padding: 2em;
+    border-radius: 0.5em;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      'top'
+      'webapp'
+      'seperator'
+      'chatbot'
+      '. ';
+    .top {
+      grid-area: top;
+      width: 100%;
+      margin-top: 0;
+      margin-bottom: 1.5em;
+    }
+    .seperator {
+      grid-area: seperator;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      hr {
+        width: 100%;
+      }
+      p {
+        background: white;
+        padding: 0 1em;
+      }
+    }
+    .check-btn {
+      grid-area: webapp;
+    }
+    .chatbot-btn {
+      grid-area: chatbot;
+    }
+    .btn {
+      width: 100%;
+      padding-left: 0.4em;
+      span {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: 'icon text';
+        .icon {
+          grid-area: icon;
+          height: auto;
+          width: 2em;
+          padding: 0.2em 1em;
+        }
+        p {
+          grid-area: text;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

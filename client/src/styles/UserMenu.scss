@@ -12,13 +12,11 @@
   .user-container {
     grid-area: menu;
     min-width: 15rem;
-    background: black;
     margin: 1em;
     border-radius: 8px;
     background: #fff;
-    border: 0px solid #ccc;
-    border-color: rgba(0, 0, 0, 0.2);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #eaeaea;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto auto;

@@ -25,8 +25,12 @@ export default function ({ setIsComplete, values, addSymptom, setDiagnosis, setI
             console.log(result)
             setQuestion(result.data.diagnoseSymptoms.question);
             setIsLoading(false);
-            if (questionsAnswered > 0) {
-                setInfoText('For accurate results, answer as many questions as you can.');
+            if (questionsAnswered > 7) {
+                setInfoText('');
+                setIsComplete(true);
+            }
+            else if (questionsAnswered > 0) {
+                setInfoText('For best results, answer as many questions as you can.');
                 setIsComplete(true);
             }
             setDiagnosis(result.data.diagnoseSymptoms)
@@ -77,23 +81,25 @@ export default function ({ setIsComplete, values, addSymptom, setDiagnosis, setI
 
     return (
         <div className="page-content questions">
-            {isLoading ?
+            {isLoading &&
                 <div className="loading">
                     <div className="lds-heart"><div></div></div>
-                </div> :
-                <p className="question">{question.text}</p>
+                </div>
             }
-            <div className="btn-container">
-                {
-                    question.items && question.items[0] && question.items[0].choices &&
-                    question.items[0].choices.map((choice) => {
-                        return (
-                            <Button key={choice.id} onClick={() => { handleClick('answer', choice.id) }} className={`btn ${choice.id}`} variant="contained" color="primary" disabled={isLoading}>
-                                {choice.label}
-                            </Button>
-                        )
-                    })
-                }
+            <div className="question-container">
+                <p className="question">{question.text}</p>
+                <div className="btn-container">
+                    {
+                        question.items && question.items[0] && question.items[0].choices &&
+                        question.items[0].choices.map((choice) => {
+                            return (
+                                <Button key={choice.id} onClick={() => { handleClick('answer', choice.id) }} className={`btn ${choice.id}`} variant="contained" color="primary" disabled={isLoading}>
+                                    {choice.label}
+                                </Button>
+                            )
+                        })
+                    }
+                </div>
             </div>
         </div>
     );

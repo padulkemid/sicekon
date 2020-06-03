@@ -49,6 +49,42 @@ const defaultValues = {
       "id": "s_331",
       "name": "nose congestion"
     },
+    {
+      id: 's_309',
+      name: 'bloating'
+    },
+    {
+      id: 's_102',
+      name: 'cough'
+    },
+    {
+      id: 's_8',
+      name: 'diarrhea'
+    },
+    {
+      id: 's_370',
+      name: 'dizziness'
+    },
+    {
+      id: 's_2100',
+      name: 'fatigue'
+    },
+    {
+      id: 's_98',
+      name: 'fever'
+    },
+    {
+      id: 's_21',
+      name: 'headache'
+    },
+    {
+      id: 's_503',
+      name: 'muscle cramps'
+    },
+    {
+      id: 's_156',
+      name: 'nausea'
+    },
   ],
   gender: '',
   symptoms: []
