@@ -42,7 +42,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background: #f2f3f4;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   position: relative;
   display: grid;
   grid-template-columns: 1fr;
@@ -53,6 +54,7 @@
 }
 .App .content {
   grid-area: content;
+  overflow: auto;
 }
 .App .menu-bar {
   grid-area: menu-bar;

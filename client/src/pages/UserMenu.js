@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "../styles/UserMenu.scss";
 import Button from '@material-ui/core/Button';
-import { PasswordInput, GenderInput, TextInput } from '../components';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { SET_USER_DATA, LOGOUT, GET_USER_DATA } from "../schema";
 import Avatar from '@material-ui/core/Avatar';

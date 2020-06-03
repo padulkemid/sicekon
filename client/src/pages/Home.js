@@ -36,7 +36,7 @@ export default function Home() {
     };
     return (
         <>
-            <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='home'>
+            <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='home content'>
                 <div className='content'>
                     <p className="top">A simple and easy to use online symptom checker. To start, simply:</p>
                     <Button onClick={() => { handleClick('check') }} className="btn check-btn" variant="outlined" color="primary">
