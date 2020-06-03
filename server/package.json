@@ -34,6 +34,12 @@
     "setupFiles": [
       "<rootDir>/setupTests.js"
     ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
     "testPathIgnorePatterns": [
       "/node_modules/",
       "./dist"
