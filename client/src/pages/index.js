@@ -1,5 +1,5 @@
 export { default as Home } from './Home'
-export { default as Info } from './Info'
+export { default as About } from './About'
 export { default as Check } from './Check'
 export { default as LoginRegister } from './LoginRegister'
 export { default as Map } from './Map'

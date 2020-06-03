@@ -46,8 +46,8 @@ export default ({ showLoginRegister, setShowLoginRegister, showUser, setShowUser
                     <Link to="/map" className="btn menubtn">
                         <p className={`menutext ${location.pathname === '/map' ? 'active' : ''}`}>Map</p>
                     </Link>
-                    <Link to="/info" className="btn menubtn">
-                        <p className={`menutext ${location.pathname === '/info' ? 'active' : ''}`}>Info</p>
+                    <Link to="/about" className="btn menubtn">
+                        <p className={`menutext ${location.pathname === '/about' ? 'active' : ''}`}>About</p>
                     </Link>
                 </div>
             }

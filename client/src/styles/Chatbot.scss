@@ -1,0 +1,89 @@
+.chatbot {
+  grid-area: content;
+  padding: 0 4em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: ' content ';
+
+  .content {
+    grid-area: content;
+    margin: auto;
+    max-width: 40em;
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      'header'
+      'body'
+      'footer';
+
+    .body {
+      grid-area: body;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2em auto 1fr;
+      grid-template-areas:
+        '.'
+        'messages'
+        '.';
+
+      .messages {
+        grid-area: messages;
+        display: flex;
+        flex-direction: column;
+        .message {
+          display: grid;
+          grid-template-columns: 3em auto 1fr;
+          grid-template-rows: 1fr auto;
+          grid-template-areas:
+            '. box .'
+            'logo box .';
+          text-align: left;
+          margin: 0.4em 0;
+          &.user {
+            grid-template-columns: 1fr auto 3em;
+            grid-template-areas:
+              '. box .'
+              '. box logo';
+            text-align: right;
+          }
+          .logo {
+            grid-area: logo;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 2em;
+            height: 2em;
+            margin: 0 0.5em;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: 2em;
+              height: 2em;
+            }
+          }
+          .box {
+            grid-area: box;
+            background: white;
+            border-radius: 16px 16px 16px 4px;
+            padding: 1em;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+            &.user {
+              background: #e34b4b;
+              color: white;
+              border-radius: 16px 16px 4px 16px;
+            }
+            .text {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import { motion } from "framer-motion";
 import { Next } from '../components'
-import '../styles/Home.scss';
+import '../styles/Chatbot.scss';
 
-export default function Home() {
+export default function () {
     const history = useHistory()
+
+    const [messageArray, setMessageArray] = useState([
+        {
+            text: 'Test1',
+            isUser: false
+        },
+        {
+            text: 'Test2',
+            isUser: false
+        },
+        {
+            text: 'Test3',
+            isUser: true
+        },
+        {
+            text: 'Test4',
+            isUser: false
+        },
+        {
+            text: 'Test5',
+            isUser: true
+        },
+    ]);
+
+    const showIcon = (arr, idx, msg) => {
+        if (idx < arr.length - 1) {
+            if (arr[idx + 1].isUser !== msg.isUser)
+                return true;
+        }
+        else if (idx === arr.length - 1)
+            return true;
+        else
+            return false;
+    };
+
+
     function isNext() {
         history.push('/info')
     }
@@ -36,23 +72,38 @@ export default function Home() {
     };
     return (
         <>
-            <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='home'>
+            <motion.div initial="init" animate="in" exit="out" variants={pageTransition} className='chatbot'>
                 <div className='content'>
-                    <p className="top">A simple and easy to use online symptom checker. To start, simply:</p>
-                    <Button onClick={() => { handleClick('check') }} className="btn check-btn" variant="outlined" color="primary">
-                        <img className="icon" src={require('../assets/list.svg')} />
-                        <p>Use our Interactive Web App</p>
-                    </Button>
-                    <div className="seperator">
-                        <hr></hr>
+                    <div className='header'>
                     </div>
-                    <div className="seperator">
-                        <p>Or</p>
+                    <div className='body'>
+                        <div className='messages'>
+                            {
+                                messageArray.map((msg, idx) => {
+                                    return (
+                                        <div className={`message ${msg.isUser ? 'user' : 'cekon'}`}>
+                                            {
+                                                showIcon(messageArray, idx, msg) &&
+                                                <div className="logo">
+                                                    {
+                                                        msg.isUser ?
+                                                            <img src={require('../assets/halodoc.png')} /> :
+                                                            <img src={require('../assets/halodoc.png')} />
+                                                    }
+                                                </div>
+                                            }
+                                            <div className={`box ${msg.isUser ? 'user' : 'cekon'}`}>
+                                                <p className="text">{msg.text}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
-                    <Button onClick={() => { handleClick('chatbot') }} className="btn chatbot-btn" variant="outlined" color="primary">
-                        <img className="icon" src={require('../assets/chat.svg')} />
-                        <p>Talk Directly with Cekon</p>
-                    </Button>
+                    <div className='footer'>
+
+                    </div>
                 </div>
             </motion.div>
         </>

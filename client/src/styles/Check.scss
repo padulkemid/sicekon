@@ -48,6 +48,8 @@
       .info {
         grid-area: info;
         color: #e34b4b;
+        display: flex;
+        align-items: center;
         .info-text {
           margin: 0;
         }

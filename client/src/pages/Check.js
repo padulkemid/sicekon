@@ -37,7 +37,7 @@ function getStepContent(stepIndex, { setIsComplete, userData, values, setValues,
     case 2:
       return (<Question setIsComplete={setIsComplete} values={values} addSymptom={addSymptom} setDiagnosis={setDiagnosis} setInfoText={setInfoText} />);
     case 3:
-      return (<Result diagnosis={diagnosis} triage={triage} />);
+      return (<Result diagnosis={diagnosis} triage={triage} setInfoText={setInfoText} />);
     default:
       return 'Unknown stepIndex';
   }

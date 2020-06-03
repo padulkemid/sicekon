@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './styles/Loading.scss';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { Home, Info, Check, Map, LoginRegister, UserMenu, Chatbot } from './pages';
+import { Home, About, Check, Map, LoginRegister, UserMenu, Chatbot } from './pages';
 import { MenuBar } from './components';
 import { AnimatePresence } from 'framer-motion';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -54,8 +54,8 @@ export default function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/info">
-              <Info />
+            <Route path="/about">
+              <About />
             </Route>
             <Route path="/check">
               <Check />

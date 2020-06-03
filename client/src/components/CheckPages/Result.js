@@ -8,11 +8,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
+import wordFormatter from '../../helpers/wordFormatter';
 
-export default function ({ diagnosis, triage }) {
+export default function ({ diagnosis, triage, setInfoText }) {
+
+    const history = useHistory();
 
     const [conditions, setConditions] = useState([]);
+
+    const [firstRun, setFirstRun] = useState(true);
 
     const [seriousConditions, setSeriousConditions] = useState([]);
 
@@ -25,6 +31,13 @@ export default function ({ diagnosis, triage }) {
             id: selectedId
         }
     });
+
+    useEffect(() => {
+        if (firstRun)
+            setInfoText('Click the respective conditions to find out more.');
+        else
+            setInfoText('');
+    }, [firstRun]);
 
     useEffect(() => {
         if (diagnosis.conditions)
@@ -42,6 +55,7 @@ export default function ({ diagnosis, triage }) {
             if (conditions[i].selected)
                 if (conditions[i].id !== selectedId) {
                     newSelectedId = conditions[i].id;
+                    setFirstRun(false);
                 }
         setSelectedId(newSelectedId);
     }, [conditions]);
@@ -85,6 +99,9 @@ export default function ({ diagnosis, triage }) {
                     newConditions[i].selected = false;
                 }
                 break;
+            case 'map':
+                history.push('/map');
+                break;
             default:
                 break;
         }
@@ -121,9 +138,9 @@ export default function ({ diagnosis, triage }) {
                                             {rows.map((row) => (
                                                 <TableRow key={row.name}>
                                                     <TableCell component="th" scope="row">
-                                                        {row.name}
+                                                        {wordFormatter(row.name)}
                                                     </TableCell>
-                                                    <TableCell align="left">{row.value}</TableCell>
+                                                    <TableCell align="left">{wordFormatter(row.value)}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -137,19 +154,59 @@ export default function ({ diagnosis, triage }) {
                     }
                 </> :
                 <div className="desc">
-                    <p className="hint">We recommend: <p className="name">{triage.triage_level ? triage.triage_level : `----`}</p></p>
-                    <hr></hr>
-                    <p className="hint">
-                        Consult with a doctor online at <a
-                            href={`https://www.halodoc.com/tanya-dokter`}
-                            target="_blank"
-                            rel="noopener noreferrer" >
-                            halodoc
-                        </a>
+                    <p className="hint">Triage Level
+                        <p className="triage">
+                            {triage.triage_level ? wordFormatter(triage.triage_level) : `----`}
+                        </p>
                     </p>
-                    <p className="hint">Find the nearest <Link to="/map">hospital</Link></p>
-                    <br></br>
-                    <p className="search">Click on the left hand side for more information</p>
+                    <hr></hr>
+                    <div className="desc-content">
+                        <p className="top">
+                            Consult with a doctor online at:
+                        </p>
+                        <div className="link-group">
+                            <a
+                                href="https://www.halodoc.com/tanya-dokter"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="halodoc">
+                                <div className="logo">
+                                    <img src={require('../../assets/halodoc.png')} />
+                                </div>
+                                <p>halodoc</p>
+                            </a>
+                            <a
+                                href="https://www.alodokter.com/landing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="alodokter">
+                                <div className="logo">
+                                    <img src={require('../../assets/Alodokter.png')} />
+                                </div>
+                                <p>Alodokter</p>
+                            </a>
+                            <a
+                                href="https://www.practo.com/consult"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="practo">
+                                <div className="logo">
+                                    <img src={require('../../assets/practo.png')} />
+                                </div>
+                                <p>practo</p>
+                            </a>
+                        </div>
+                        <div className="seperator">
+                            <hr></hr>
+                        </div>
+                        <div className="seperator">
+                            <p>Or</p>
+                        </div>
+                        <Button onClick={() => { handleClick('map') }} className="btn map-btn" variant="outlined" color="primary">
+                            <img className="icon" src={require('../../assets/map.svg')} />
+                            <p>Find the nearest hospital</p>
+                        </Button>
+                    </div>
                 </div>
             }
             {loading &&
