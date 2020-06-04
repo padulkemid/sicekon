@@ -12,6 +12,14 @@
     your `.env`, and **DON'T FORGET TO CHANGE IT INTO** `setupTests.js` 👓
   - Have fun ! 🤩
 
+## Deployed link 👌🏽
+
+<p align="center">
+  <em>Please go <a href="https://sicekon.herokuapp.com"> here </a></em> ⚡️ <br
+  />
+  <em>Server hosting is provided by Heroku</em> 🎛
+</p>
+
 ## Queries and Mutations ⚡️
 
 ```graphql

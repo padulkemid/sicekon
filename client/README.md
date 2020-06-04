@@ -26,5 +26,5 @@
 <em>
   Please go <a href="https://sicekon.now.sh"> here </a>, Thank you 
 </em> 😉 <br />
- <em> Static hosting provided by Vercel </em> ⚙️ 
+ <em> Static hosting is provided by Vercel </em> ⚙️ 
 </em></p>
