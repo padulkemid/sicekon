@@ -1,32 +1,18 @@
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717318623617744906/heartbeatlogo.png" alt="sicekon_logo">
+  <img src="https://i.imgur.com/tLp3L3c.png">
 </div>
 
 <h1 align="center">👨🏼‍⚕️ Si Cekon Server ⭐️</h1>
 
-## Queries ( Mutation and Query ) 🍽
+## Contributing 🍥
 
-### Setups 🍥
-
-  - Please do `npm install` after clone
-  - To run do `npm run start` and to test do `npm run test`
+  - Please do `npm install` after clone 👥
+  - To run do `npm run start` and to test do `npm run test` 🏃🏽‍♂️
   - To run test properly, edit `./setupTests_template.js` to be the same as
-    your `.env`, and **DON'T FORGET TO CHANGE IT INTO** `setupTests.js`
-  - Symptom diagnosis should be mutated after every iteriation with interview
-    questions ~~until _should_stop: true_ ( for the best result, and maybe more accurate )~~
+    your `.env`, and **DON'T FORGET TO CHANGE IT INTO** `setupTests.js` 👓
+  - Have fun ! 🤩
 
-    **UPDATE**: temporarily gonna ask for about 3~5 questions then choose the best
-    of 3 probability ( sorted and get the details about them )
-
-    **UPDATE**: conditions met will be scanned and server will response with 
-    `severity`, `prevalance`, and `hint`
-  - Chat bot is only final response, so it'll check the `text` query
-    for more further info you could go to the docs NLP
-  - Triage level for emergency includes `emergency`, `consultation`, `self_care`
-    3 of this will be explained later ( usability for client )
-  - Users are optional, but feature is added ( because symptom is emergency
-      hence it don't need any user at all ), but it is added to preserve
-      historical conditions about your symptoms before
+## Queries and Mutations ⚡️
 
 ```graphql
 ### Check api key and api id
