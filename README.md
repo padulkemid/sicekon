@@ -45,15 +45,17 @@ hardwork in the past 5 days.
 </p>
 
 <div align="center">
-  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717883995467153418/Fadhil_Muhammad.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884035908501574/Alan_Budiarto.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884096080248842/Budi_Indra_Gunawan.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884127847907359/47031836.jpeg" width="100">
+  <a href="https://github.com/padulkemid" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/715546353304076350/717883995467153418/Fadhil_Muhammad.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <a href="https://github.com/abudiar" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884035908501574/Alan_Budiarto.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <a href="https://github.com/buigun" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884096080248842/Budi_Indra_Gunawan.jpg" width="100">&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <a href="https://github.com/indrapuji" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/715546353304076350/717884127847907359/47031836.jpeg" width="100">
+  </a>
 </div>
 
-<div style="display: flex; flex-direction: row; justify-content: center;">
-  <p>@padulkemid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-  <p>@abudiar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-  <p>@buigun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-  <p>@indrapuji</p>
-</div>
