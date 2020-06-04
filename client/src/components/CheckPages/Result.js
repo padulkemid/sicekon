@@ -116,7 +116,9 @@ export default function ({ diagnosis, triage, setInfoText }) {
             {selectedId ?
                 <>
                     {data && data.checkCondition &&
-                        <div className="desc">
+                        <div className="desc"
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <p className="common_name">{data.checkCondition.common_name}</p>
                             {data.checkCondition.common_name !== data.checkCondition.name &&
                                 <p className="name">{data.checkCondition.name}</p>
@@ -212,7 +214,8 @@ export default function ({ diagnosis, triage, setInfoText }) {
                     </div>
                 </div>
             }
-            {loading &&
+            {
+                loading &&
                 <div className="desc loading">
                     <div className="lds-heart"><div></div></div>
                 </div>
@@ -246,6 +249,6 @@ export default function ({ diagnosis, triage, setInfoText }) {
                     )
                 })}
             </div>
-        </div>
+        </div >
     );
 }
